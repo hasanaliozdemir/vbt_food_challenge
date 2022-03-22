@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CategoryTextContainer extends StatefulWidget {
+class CategoryTextContainerWidget extends StatefulWidget {
   final String text;
   final VoidCallback? onpressed;
 
-  CategoryTextContainer(this.text, this.onpressed);
+  CategoryTextContainerWidget(this.text, this.onpressed);
 
   @override
-  _CategoryTextContainerState createState() => _CategoryTextContainerState();
+  _CategoryTextContainerWidgetState createState() => _CategoryTextContainerWidgetState();
 }
 
-class _CategoryTextContainerState extends State<CategoryTextContainer> {
+class _CategoryTextContainerWidgetState extends State<CategoryTextContainerWidget> {
   Color backColor = const Color.fromARGB(255, 255, 91, 91).withOpacity(0.4);
   @override
   Widget build(BuildContext context) {
