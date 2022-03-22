@@ -34,6 +34,7 @@ dependencies:
   flutter_svg: ^1.0.3
   google_fonts: ^2.3.1
   kartal: ^2.3.1
+  easy_localization: ^3.0.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -52,6 +53,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icons/bottom_navbar/
+    - assets/lang/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

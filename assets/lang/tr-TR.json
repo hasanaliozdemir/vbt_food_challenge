@@ -1,0 +1,16 @@
+{
+
+    "appBar" : {
+        "homepageTitle" : "Anasayfa",
+        "ProfilePageTitle" : "Profil",
+        "contestPageTitle" : "Yarışmalar",
+        "searchPageTitle" : "Tarif Ara"
+
+
+    },
+
+    "main" : {
+        "descriptionImage" : "Merhaba"
+      
+    }
+}
