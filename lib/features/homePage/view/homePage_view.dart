@@ -9,7 +9,7 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(title: Text(LocaleKeys.appBar_homepageTitle.tr())),
       body: Center(
         child: Text('HomePageView'),
       ),
