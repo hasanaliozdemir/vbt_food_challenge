@@ -1,30 +1,47 @@
-import 'dart:ui';
-
-import 'package:flutter/src/material/color_scheme.dart';
+import 'package:flutter/material.dart';
 
 import 'color_theme.dart';
 
-class DarkTheme implements IColorTheme {
+class DarkColors implements IColors {
   @override
-  late final Color? background;
+  Color? appBarColor;
 
   @override
-  late final Brightness? brightness;
+  Brightness? brightness;
 
   @override
-  late final Color? buttonColor;
+  ColorScheme? colorScheme;
 
   @override
-  late final ColorScheme? colorScheme;
+  Color? scaffoldBackgroundColor;
 
   @override
-  AppColors? colors = AppColors();
+  Color? tabBarColor;
 
-  DarkTheme() {
-    background = colors?.backgroundColor;
-    colorScheme = ColorScheme.dark().copyWith(primary: colors?.error);
+  @override
+  Color? tabbarNormalColor;
+
+  @override
+  Color? tabbarSelectedColor;
+
+  @override
+  Color? buttonGoogleColor;
+
+  @override
+  Color? buttonNormalColor;
+
+  @override
+  final AppColors colors = AppColors();
+
+  DarkColors() {
+    appBarColor = colors.lead;
+    scaffoldBackgroundColor = colors.lead;
+    tabBarColor = colors.pompelmo;
+    tabbarNormalColor = colors.lighterGrey;
+    tabbarSelectedColor = colors.pompelmo;
+    buttonNormalColor = colors.pompelmo;
+    buttonGoogleColor = colors.nightblue;
+    colorScheme = const ColorScheme.dark()
+        .copyWith(onPrimary: colors.pompelmo, onSecondary: colors.darkGrey);
   }
-
-  @override
-  Color? darkBackgorundColor;
 }

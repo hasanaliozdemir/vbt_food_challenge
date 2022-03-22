@@ -1,35 +1,50 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 
-import 'package:flutter/src/material/color_scheme.dart';
-
-import 'color_theme.dart';
-
-class LightTheme implements IColorTheme {
+class LightColors implements IColors {
   @override
-  final AppColors? colors = AppColors();
+  Color? appBarColor;
 
   @override
-  late final Color? background;
+  Brightness? brightness;
 
   @override
-  late final Brightness? brightness;
+  ColorScheme? colorScheme;
 
   @override
-  late final ColorScheme? colorScheme;
+  Color? scaffoldBackgroundColor;
 
   @override
-  Color? buttonColor;
+  Color? tabBarColor;
 
-  LightTheme() {
-    // backgroundColor = colors.whiteTheme;
-    brightness = Brightness.light;
-    // blackTextColor = colors.blackTheme;
-    // blueTextColor = colors.darkBlue;
-    colorScheme = const ColorScheme.light()
-        .copyWith(background: colors?.yellowCardShadow, primary: colors?.error, onPrimary: colors?.notifiticonPink);
-    background = colors?.backgroundColor;
+  @override
+  Color? tabbarNormalColor;
+
+  @override
+  Color? tabbarSelectedColor;
+
+  @override
+  final AppColors colors = AppColors();
+
+  LightColors() {
+    appBarColor = colors.white;
+    scaffoldBackgroundColor = colors.white;
+    tabBarColor = colors.pompelmo;
+    tabbarNormalColor = colors.darkerGrey;
+    tabbarSelectedColor = colors.pompelmo;
+
+    buttonNormalColor = colors.pompelmo;
+    buttonGoogleColor = colors.nightblue;
+    colorScheme = const ColorScheme.light().copyWith(
+      onPrimary: colors.pompelmo, //xx Her ikisinde ortaktır
+      onSecondary: colors.white,
+      onSurface: colors.mediumGreyBold,
+    );
   }
 
   @override
-  Color? darkBackgorundColor;
+  Color? buttonGoogleColor;
+
+  @override
+  Color? buttonNormalColor;
 }

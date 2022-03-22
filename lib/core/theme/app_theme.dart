@@ -1,38 +1,52 @@
-
 import 'package:flutter/material.dart';
+import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
+import 'package:vbt_food_challange/core/theme/color/dark_color_theme.dart';
+import 'package:vbt_food_challange/core/theme/text/dark_text_theme.dart';
+import 'package:vbt_food_challange/core/theme/text/light_text_theme.dart';
 import 'package:vbt_food_challange/core/theme/text/text_theme.dart';
 
-import 'color/color_theme.dart';
 import 'color/light_color_theme.dart';
-import 'text/light_text_theme.dart';
 
 abstract class ITheme {
   ITextTheme get textTheme;
-  IColorTheme get colorTheme;
+  IColors get colors;
+}
+
+abstract class ThemeManager {
+  static ThemeData createTheme(ITheme theme) => ThemeData(
+        fontFamily: theme.textTheme.fontFamily,
+        textTheme: theme.textTheme.data,
+        cardColor: theme.colors.colorScheme?.onSecondary,
+        bottomAppBarColor: theme.colors.scaffoldBackgroundColor,
+        tabBarTheme: TabBarTheme(
+          indicator: const BoxDecoration(),
+          labelColor: theme.colors.tabbarSelectedColor,
+          unselectedLabelColor: theme.colors.tabbarNormalColor,
+        ),
+        appBarTheme: AppBarTheme(backgroundColor: theme.colors.appBarColor),
+        scaffoldBackgroundColor: theme.colors.scaffoldBackgroundColor,
+        colorScheme: theme.colors.colorScheme,
+      );
+}
+
+class AppThemeDark extends ITheme {
+  @override
+  late final ITextTheme textTheme;
+  AppThemeDark() {
+    textTheme = TextThemeDark(colors.colors.mediumGrey);
+  }
+
+  @override
+  IColors get colors => DarkColors();
 }
 
 class AppThemeLight extends ITheme {
   @override
-  IColorTheme colorTheme = LightTheme();
+  late final ITextTheme textTheme;
+  AppThemeLight() {
+    textTheme = TextThemeLight(colors.colors.mediumGrey);
+  }
 
   @override
-  ITextTheme get textTheme => LightTextTheme(colorTheme.colors?.backgroundColor);
-}
-
-abstract class ThemeManager {
-  static ThemeData createTheme(ITheme theme) {
-    return ThemeData(
-        appBarTheme: AppBarTheme(
-            color: theme.colorTheme.colors?.backgroundColor,
-            titleTextStyle: theme.textTheme.body1
-                ?.copyWith(color: theme.colorTheme.colorScheme?.onPrimary, fontWeight: FontWeight.bold)),
-        fontFamily: theme.textTheme.fontFamily,
-        textTheme: TextTheme(headline6: theme.textTheme.headline6, bodyText1: theme.textTheme.body1)
-            .apply(bodyColor: theme.textTheme.primaryColor),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: theme.colorTheme.colorScheme?.error),
-        dividerTheme: DividerThemeData(color: theme.colorTheme.colors?.backgroundColor),
-        buttonTheme:
-            ButtonThemeData(colorScheme: ColorScheme.light(onTertiary: theme.colorTheme.background ?? Colors.black)),
-        bottomAppBarTheme: BottomAppBarTheme(color: theme.colorTheme.buttonColor));
-  }
+  IColors get colors => LightColors();
 }
