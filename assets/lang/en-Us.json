@@ -1,16 +1,12 @@
 {
-
     "appBar" : {
         "homepageTitle" : "Home Page",
         "ProfilePageTitle" : "Profile",
         "contestPageTitle" : "Contest",
         "searchPageTitle" : "Search Recipe"
-
-
     },
 
     "main" : {
         "descriptionImage" : "Hello"
-      
     }
 }
