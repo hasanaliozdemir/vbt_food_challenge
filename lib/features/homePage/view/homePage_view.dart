@@ -4,17 +4,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/homepage_strings.dart';
 import 'package:vbt_food_challange/core/widgets/food_container.dart';
+import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 import 'package:vbt_food_challange/features/homePage/service/foodList_Service.dart';
 import 'package:vbt_food_challange/features/homePage/viewmodel/cubit/homepageview_cubit.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
 import '../../../core/init/lang/locale_keys.g.dart';
+import '../../../product/widgets/appbar.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({Key? key}) : super(key: key);
+
   @override
+  
   Widget build(BuildContext context) {
+     FoodListService().getOneFood();
     
+     TextStyle appbarTitleStyle = const TextStyle(
+        fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black);
     TextStyle bodyTitleStyle = const TextStyle(
         fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black);
     String _url =
@@ -22,12 +29,7 @@ class HomePageView extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomePageViewCubit(),
       child: Scaffold(
-        appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              HomePageStrings.title,
-              style: bodyTitleStyle,
-            )),
+        appBar: header(context:context,name:"Ana Sayfa",isback:false),
         body: BlocConsumer<HomePageViewCubit, HomePageViewState>(
           listener: (context, state) {
             
@@ -71,20 +73,23 @@ class HomePageView extends StatelessWidget {
           ),
         ),
         Container(
-          height: context.height * 35 / 100,
+         
           width: double.infinity,
           child: ListView.builder(
               shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
+              //scrollDirection: Axis.vertical,
+             physics: NeverScrollableScrollPhysics(),
               itemCount: 5,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
+                    height: context.height*25/100,
+                    width: double.infinity,
                     url: _url,
                     textisUp: true,
                     foodName: "Iskender",
-                    participants: 25,
+                    cooker: "Ayşe ",
                   ),
                 );
               }),

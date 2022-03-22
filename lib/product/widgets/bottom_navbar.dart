@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
-import 'package:vbt_food_challange/features/contestPage/view/contest_view.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
 import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
 import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
+
+import '../../features/contestPage/screens/ContestPage/view/contest_view.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         children: [
           item(icon: 'home', title: 'Anasayfa', pageName: HomePageView()),
           item(icon: 'search', title: 'Tarif Ara', pageName: SearchPageView()),
-          item(icon: 'chef', title: 'Yarışmalar', pageName: ContestView()),
+          item(icon: 'chef', title: 'Yarışmalar', pageName: ContestPageView()),
           item(icon: 'profile', title: 'Profil', pageName: ProfilPageView()),
         ],
       ),
