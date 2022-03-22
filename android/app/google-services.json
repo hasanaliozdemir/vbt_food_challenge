@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "125511489203",
+    "firebase_url": "https://vbt-food-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "vbt-food",
+    "storage_bucket": "vbt-food.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125511489203:android:9ef9c8bbbdd2763c5a42c6",
+        "android_client_info": {
+          "package_name": "com.example.vbt_food_challange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125511489203-0cdrrgkv4b58rb9ttk704j8qhirsb84s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqjHs-p_PEeLAC7cYquzyTof7hc8NJcHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125511489203-0cdrrgkv4b58rb9ttk704j8qhirsb84s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "125511489203-op5l2mded5gl0f3700tqv5b3hljhgq2v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vbtfoodchallange"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125511489203:android:cd431737c2f082b85a42c6",
+        "android_client_info": {
+          "package_name": "com.example.vbt_food_challenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125511489203-0cdrrgkv4b58rb9ttk704j8qhirsb84s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqjHs-p_PEeLAC7cYquzyTof7hc8NJcHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125511489203-0cdrrgkv4b58rb9ttk704j8qhirsb84s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "125511489203-op5l2mded5gl0f3700tqv5b3hljhgq2v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vbtfoodchallange"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

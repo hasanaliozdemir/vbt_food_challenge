@@ -52,6 +52,6 @@ class TextThemeLight implements ITextTheme {
       bodyText1: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
       subtitle2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
     ).apply(bodyColor: primaryColor);
-    fontFamily = GoogleFonts.arvo().fontFamily;
+    fontFamily = GoogleFonts.poppins().fontFamily;
   }
 }
