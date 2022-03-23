@@ -3,30 +3,39 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 
 
-List<FoodModel> foodModelFromJson(String str) => List<FoodModel>.from(json.decode(str).map((x) => FoodModel.fromJson(x)));
-class FoodModel {
-    FoodModel({
+List<ContestModel> ContestModelFromJson(String str) => List<ContestModel>.from(json.decode(str).map((x) => ContestModel.fromJson(x)));
+
+
+class ContestModel {
+    ContestModel({
         this.id,
         this.name,
         this.category,
-        this.imageUrls,
-        this.recipe,
-        this.rating,
-        this.contestRef,
-        this.commentList,
-        this.materials
+        this.imageUrl,
+        this.description,
+       // this.participant,
+        this.badgeUrl,
+        this.startTime,
+        this.endTime,
+        this.addTime,
+        this.winner,
+        this.contestFoods,
     });
     int? id;
     String? name;
     String? category;
-    List<String>? imageUrls;
-    String? recipe;
-    String? rating;
-    String? contestRef;
-    List<CommentModel?>? commentList;
-    List<MaterialModel?>? materials;
+    List<String>? imageUrl;
+    String? description;
+   // List<UserModel?>? participant;
+    String? badgeUrl;
+    Timestamp? startTime;
+    Timestamp? endTime;
+    Timestamp? addTime;
+    String? winner;
+    List<FoodModel>? contestFoods;
     
     
    
@@ -34,26 +43,28 @@ class FoodModel {
    
 
 
-    factory FoodModel.fromJson(Map<String, dynamic> json) => FoodModel(
+    factory ContestModel.fromJson(Map<String, dynamic> json) => ContestModel(
        
         id: json["id"],
         name: json["name"],
         category: json["category"],
-        imageUrls: json["imageUrls"],
-        recipe: json["recipe"],
-        rating: json["rating"],
-        contestRef: json["contestRef"],
-        commentList: json["commentList"],
-        materials: json["materials"],
+        imageUrl: json["imageUrl"],
+      //  participant: json["participant"],
+        badgeUrl: json["badgeUrl"],
+        startTime: json["startTime"],
+        endTime: json["endTime"],
+        addTime: json["addTime"],
+        winner:json['winner'],
+        //contestFoods: FoodModel.fromFirestore(json),
       
     );
 
-//     factory FoodModel.fromFirestore(DocumentSnapshot? doc) {
+//     factory ContestModel.fromFirestore(DocumentSnapshot? doc) {
       
 //     var data = doc?.data.data();
 
 
-//     return FoodModel(
+//     return ContestModel(
 //         id: data["id"],
 //         name: data["name"],
 //         category: data["category"],
@@ -72,7 +83,15 @@ class FoodModel {
     //     "title": title,
     // };
 
-
+final List contests=[ContestModel(
+             id:0,
+             name:"KarnıYarık",
+             category: "Ana Yemek",
+             imageUrl: ["https://galeri13.uludagsozluk.com/624/sarma-beyti_1776232.jpg"],
+             description: "Karnı Yarık Yapmak ister misin ?",
+             badgeUrl: "https://i.pinimg.com/originals/3b/34/22/3b342214e29ffec9de07a9a015375cac.png",
+             
+         ) ];
 }
 class CommentModel{
   CommentModel({this.addTime,this.comment,this.point,this.user_uid});

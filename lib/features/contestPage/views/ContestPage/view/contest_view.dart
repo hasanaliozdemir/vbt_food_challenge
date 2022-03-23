@@ -55,7 +55,7 @@ class ContestPageView extends StatelessWidget {
                 ],
               ),
             ),
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(pageid:2),
     );
   }
 
@@ -126,6 +126,9 @@ class ContestPageView extends StatelessWidget {
                     url: _url,
                     width: context.width * 1.5 / 2,
                     foodName: "İskender",
+
+                    //yarışma ayrıntısına gidilecek
+                    onpressed: (){Navigator.pushNamed(context, "/finishContestDetail");},
                   ),
                 );
               }),

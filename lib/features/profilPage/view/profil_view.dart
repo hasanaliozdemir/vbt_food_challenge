@@ -10,7 +10,7 @@ class ProfilPageView extends StatelessWidget {
       body: Center(
         child: Text('ProfilePageView'),
       ),
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(pageid:3),
     );
   }
 }

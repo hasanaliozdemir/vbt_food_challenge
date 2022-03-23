@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
+import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
 import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
 import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
 
-import '../../features/contestPage/screens/ContestPage/view/contest_view.dart';
 
 class BottomNavbar extends StatefulWidget {
-  const BottomNavbar({Key? key}) : super(key: key);
+  final int pageid;
+  const BottomNavbar({Key? key,required this.pageid}) : super(key: key);
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -19,24 +20,18 @@ class _BottomNavbarState extends State<BottomNavbar> {
   Widget build(BuildContext context) {
     return Container(
       height: context.height * 0.1,
-      decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            spreadRadius: 1,
-            offset: Offset(0, -1),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.only(top: context.height/100),
+      
+    
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
+        
         children: [
-          item(icon: 'home', title: 'Anasayfa', pageName: HomePageView()),
-          item(icon: 'search', title: 'Tarif Ara', pageName: SearchPageView()),
-          item(icon: 'chef', title: 'Yarışmalar', pageName: ContestPageView()),
-          item(icon: 'profile', title: 'Profil', pageName: ProfilPageView()),
+          item(icon: 'home', title: 'Anasayfa', pageName: "",id:0),
+          item(icon: 'search', title: 'Tarif Ara', pageName: "searchPage",id:1),
+          item(icon: 'chef', title: 'Yarışmalar', pageName: "contestPage",id:2),
+          item(icon: 'profile', title: 'Profil', pageName: "profilePage",id:3),
         ],
       ),
     );
@@ -45,19 +40,22 @@ class _BottomNavbarState extends State<BottomNavbar> {
   Widget item({
     required String title,
     required String icon,
-    required Widget pageName,
+    required String pageName,
+    required int id
   }) {
+     
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (context) => pageName));
+        Navigator.pushReplacementNamed(context, "/$pageName");
+        // Navigator.of(context)
+        //     .pushReplacement(MaterialPageRoute(builder: (context) => pageName));
       },
       child: Column(
         children: [
           SvgPicture.asset(
             'assets/icons/bottom_navbar/$icon.svg',
             height: 35,
-            color: Colors.blueAccent,
+            color: widget.pageid==id? AppColors().red:AppColors().darkGrey,
           ),
           Text(
             title,

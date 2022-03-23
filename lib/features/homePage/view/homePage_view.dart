@@ -26,10 +26,13 @@ class HomePageView extends StatelessWidget {
         fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black);
     String _url =
         "https://galeri13.uludagsozluk.com/624/sarma-beyti_1776232.jpg";
+
+
     return BlocProvider(
       create: (context) => HomePageViewCubit(),
       child: Scaffold(
         appBar: header(context:context,name:"Ana Sayfa",isback:false),
+         bottomNavigationBar: BottomNavbar(pageid:0),
         body: BlocConsumer<HomePageViewCubit, HomePageViewState>(
           listener: (context, state) {
             
@@ -55,7 +58,7 @@ class HomePageView extends StatelessWidget {
             );
           },
         ),
-        bottomNavigationBar: BottomNavbar(),
+       
       ),
     );
   }
@@ -127,6 +130,10 @@ class HomePageView extends StatelessWidget {
                     cooker: "Ayşe",
                     rating: 4.5,
                     participants: 25,
+                    onpressed: (){
+                      //tamamlanan yarışmalara gidecek
+                      Navigator.pushNamed(context, "/finishContestDetail");
+                      }
                   ),
                 );
               }),
@@ -161,6 +168,9 @@ class HomePageView extends StatelessWidget {
                     url: _url,
                     width: context.width * 1.5 / 2,
                     foodName: "İskender",
+                    onpressed: (){
+                      //tarif ayrıntı sayfasına gidilecek
+                    },
                   ),
                 );
               }),
