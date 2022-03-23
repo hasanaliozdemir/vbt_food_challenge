@@ -9,7 +9,7 @@ class CustomButton extends StatefulWidget {
   CustomButton({Key? key, required this.text, required this.isLoading, required this.func}) : super(key: key){
     color = AppColors().red;
   }
-
+  
   CustomButton.googleSignIn({Key? key, required this.isLoading,required this.func}) : super(key: key){
     text = "Google ile Giriş";
     color = AppColors().nightblue;

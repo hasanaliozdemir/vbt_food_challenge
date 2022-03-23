@@ -48,7 +48,7 @@ class TextThemeLight implements ITextTheme {
       subtitle1: TextStyle(fontSize: 16.0),
       headline4: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       caption: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-      headline5: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      headline5: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       bodyText1: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
       subtitle2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
     ).apply(bodyColor: primaryColor);

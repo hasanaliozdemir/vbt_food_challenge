@@ -28,10 +28,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Expanded(
               flex: 7,
               child: _builderPageView()),
-            Expanded(
-              flex: 1,
+            Container(
+              alignment: Alignment.centerRight,
               child: Padding(
-                padding:  EdgeInsets.only(bottom:context.height/25,),
+                padding:  EdgeInsets.symmetric(horizontal:context.height/20,vertical: context.width/20),
                 child: _buildCustomButton(),
               ))
           ],
@@ -85,15 +85,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Container _buildModelContainer(int index, BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      padding: EdgeInsets.only(top: context.height/10),
+      padding: EdgeInsets.symmetric(vertical: context.height/10,horizontal: 5),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           
-          Text(
-            models[index].title,
-            style: Theme.of(context).textTheme.headline5?.copyWith(
-                color: isDark ? AppColors().white : AppColors().black,
-                fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.only(left:8.0),
+            child: Text(
+              
+              models[index].title,
+              style: Theme.of(context).textTheme.headline5?.copyWith(
+                
+                  color: isDark ? AppColors().white : AppColors().black,
+                  fontWeight: FontWeight.bold,),
+            ),
           ),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: context.height/40),
