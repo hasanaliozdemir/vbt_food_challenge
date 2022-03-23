@@ -7,7 +7,7 @@ class CustomButton extends StatefulWidget {
   final VoidCallback func;
   late Color color;
   CustomButton({Key? key, required this.text, required this.isLoading, required this.func}) : super(key: key){
-    color = AppColors().pompelmo;
+    color = AppColors().red;
   }
 
   CustomButton.googleSignIn({Key? key, required this.isLoading,required this.func}) : super(key: key){
@@ -32,7 +32,7 @@ class _CustomButtonState extends State<CustomButton> {
           width: MediaQuery.of(context).size.width * 0.83,
           height:  (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.0562,
           child: (!widget.isLoading)
-              ? Center(child: Text(widget.text))
+              ? Center(child: Text(widget.text,style: TextStyle(color: AppColors().white,fontSize: 20),))
               : Center(
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.035,

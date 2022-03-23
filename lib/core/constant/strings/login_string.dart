@@ -1,3 +1,3 @@
 class LoginString {
-  String loginText = 'LOGİN';
+  static String loginText = 'LOGİN';
 }

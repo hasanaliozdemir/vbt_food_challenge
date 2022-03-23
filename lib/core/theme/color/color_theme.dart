@@ -9,7 +9,7 @@ class AppColors {
   final Color darkGrey = const Color(0xff4e5d6a);
 
   final Color white = const Color(0xffffffff);
-  final Color pompelmo = const Color(0xffFD6666);
+  final Color red = const Color(0xffFD6666);
   final Color lunarbase = const Color(0xff868686);
   final Color black = const Color(0xff000000);
   final Color bleachedsilk = const Color(0xffF3F2F2);

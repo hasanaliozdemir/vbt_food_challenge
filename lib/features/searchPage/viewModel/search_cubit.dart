@@ -10,4 +10,4 @@ class SearchPageInitial extends SearchPageState {}
 
 class SearchPageLoadingState extends SearchPageState {}
 
-class SearcPageErrorState extends SearchPageState {}
+class SearchPageErrorState extends SearchPageState {}

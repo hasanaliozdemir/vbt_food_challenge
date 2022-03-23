@@ -27,17 +27,32 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  bloc: ^8.0.3
-  cloud_firestore: ^3.1.10
-  cupertino_icons: ^1.0.2
-  easy_localization: ^3.0.0
+
+  #Firebase 
+  cloud_firestore: any
   firebase_core: ^1.13.1
+
+  #language settings
+  easy_localization: ^3.0.0
+  
   flutter:
     sdk: flutter
+
+  #state management
   flutter_bloc: ^8.0.1
+  bloc: ^8.0.3
+
   flutter_svg: ^1.0.3
+
+  #font
   google_fonts: ^2.3.1
+
+  #
   kartal: ^2.3.1
+
+  #icons
+  cupertino_icons: ^1.0.2
+  lottie: ^1.2.2
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -57,6 +72,8 @@ flutter:
   assets:
     - assets/icons/bottom_navbar/
     - assets/lang/
+    - assets/lotties/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

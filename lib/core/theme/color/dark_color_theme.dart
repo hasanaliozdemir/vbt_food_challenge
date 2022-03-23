@@ -36,12 +36,12 @@ class DarkColors implements IColors {
   DarkColors() {
     appBarColor = colors.lead;
     scaffoldBackgroundColor = colors.lead;
-    tabBarColor = colors.pompelmo;
+    tabBarColor = colors.red;
     tabbarNormalColor = colors.lighterGrey;
-    tabbarSelectedColor = colors.pompelmo;
-    buttonNormalColor = colors.pompelmo;
+    tabbarSelectedColor = colors.red;
+    buttonNormalColor = colors.red;
     buttonGoogleColor = colors.nightblue;
     colorScheme = const ColorScheme.dark()
-        .copyWith(onPrimary: colors.pompelmo, onSecondary: colors.darkGrey);
+        .copyWith(onPrimary: colors.red, onSecondary: colors.darkGrey);
   }
 }

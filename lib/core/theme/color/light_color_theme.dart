@@ -29,14 +29,14 @@ class LightColors implements IColors {
   LightColors() {
     appBarColor = colors.white;
     scaffoldBackgroundColor = colors.white;
-    tabBarColor = colors.pompelmo;
+    tabBarColor = colors.red;
     tabbarNormalColor = colors.darkerGrey;
-    tabbarSelectedColor = colors.pompelmo;
+    tabbarSelectedColor = colors.red;
 
-    buttonNormalColor = colors.pompelmo;
+    buttonNormalColor = colors.red;
     buttonGoogleColor = colors.nightblue;
     colorScheme = const ColorScheme.light().copyWith(
-      onPrimary: colors.pompelmo, //xx Her ikisinde ortaktır
+      onPrimary: colors.red, //xx Her ikisinde ortaktır
       onSecondary: colors.white,
       onSurface: colors.mediumGreyBold,
     );
