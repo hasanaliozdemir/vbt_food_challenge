@@ -6,6 +6,7 @@ import 'package:vbt_food_challange/core/theme/app_theme.dart';
 import 'package:vbt_food_challange/features/contestPage/screens/ContestPage/view/contest_view.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
 import 'package:vbt_food_challange/features/homepage/view/homepage_view.dart';
+import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
 
 
 import 'core/constant/app/app_constants.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home:  OnboardingScreen(),
+      home:  ProfilPageView(),
       theme: ThemeManager.createTheme(AppThemeLight()),
     );
   }
