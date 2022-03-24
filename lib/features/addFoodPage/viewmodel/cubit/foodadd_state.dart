@@ -9,7 +9,6 @@ class FoodAddComplate extends FoodAddState {
   final File? image;
 
   FoodAddComplate(this.image);
-
 }
 
 class FoodAddError extends FoodAddState {}
