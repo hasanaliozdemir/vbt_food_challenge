@@ -59,6 +59,9 @@ dependencies:
   image_picker: ^0.8.4+4
   contained_tab_bar_view: ^0.8.0
 
+  #for fun
+  flutter_fortune_wheel: ^1.2.0
+
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:

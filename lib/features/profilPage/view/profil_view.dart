@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/core/widgets/food_container.dart';
+import 'package:vbt_food_challange/features/profilPage/service/profile_service.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
-class ProfilPageView extends StatelessWidget {
+class ProfilPageView extends StatefulWidget {
   const ProfilPageView({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilPageView> createState() => _ProfilPageViewState();
+}
+
+class _ProfilPageViewState extends State<ProfilPageView> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,42 +51,42 @@ class ProfilPageView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavbar(pageid:3),
+      bottomNavigationBar: BottomNavbar(pageid: 3),
     );
   }
 
   Column _buildYourReceips(BuildContext context) {
     return Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Tariflerin",
-                      style: context.textTheme.bodyLarge
-                          ?.copyWith(color: AppColors().red),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      height: context.dynamicHeight(0.01),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.chevron_right,
-                          color: AppColors().red,
-                        ),
-                      ),
-                    ),
-                  ],
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Tariflerin",
+              style:
+                  context.textTheme.bodyLarge?.copyWith(color: AppColors().red),
+            ),
+            const Spacer(),
+            SizedBox(
+              height: context.dynamicHeight(0.01),
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.chevron_right,
+                  color: AppColors().red,
                 ),
-                SizedBox(
-                  height: context.paddingLow.top,
-                ),
-                _buildReceipRow(context)
-              ],
-            );
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: context.paddingLow.top,
+        ),
+        _buildReceipRow(context)
+      ],
+    );
   }
 
   Column _buildSavedReceips(BuildContext context) {
@@ -119,27 +131,30 @@ class ProfilPageView extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: context.paddingLow.right),
             child: SizedBox(
-              width: context.dynamicWidth(0.373),
+              width: context.dynamicWidth(0.3),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "data",
+                      style: TextStyle(fontSize: context.dynamicWidth(0.03)),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
                   Row(
-                    children: [
-                      Text("KarnıYarık"),
-                      const Spacer(),
-                      Row(
-                        children: List.generate(5, (index) {
-                          return Icon(
-                            Icons.star,
-                            color: AppColors().demonicyellow,
-                            size: context.dynamicWidth(0.03),
-                          );
-                        }),
-                      )
-                    ],
+                    children: List.generate(5, (index) {
+                      return Icon(
+                        Icons.star,
+                        color: AppColors().demonicyellow,
+                        size: context.dynamicWidth(0.03),
+                      );
+                    }),
                   ),
                   ImageCardWidget(
-                    height: context.dynamicHeight(0.09),
-                    width: context.dynamicWidth(0.373),
+                    height: context.dynamicHeight(0.08),
+                    width: context.dynamicWidth(0.3),
                     url:
                         "https://cdn.ye-mek.net/App_UI/Img/out/420/2016/06/karniyarik-resimli-yemek-tarifi(20).jpg",
                   ),

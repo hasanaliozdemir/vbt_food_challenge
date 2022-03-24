@@ -6,7 +6,7 @@ import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/features/foodDetailPage/view/recipePage.dart';
 import 'package:vbt_food_challange/features/foodDetailPage/viewmodel/cubit/fooddetailpage_cubit.dart';
 import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
-import 'package:vbt_food_challange/product/staticListData/foodmodelData.dart';
+
 
 import '../../../core/widgets/food_container.dart';
 import '../../../product/widgets/appbar.dart';
@@ -14,9 +14,9 @@ import '../parts/comments_page.dart';
 
 
 class FoodDetailPageView extends StatelessWidget {
-  final FoodModel? foodModel;
+  FoodModel? foodModel;
  // List<CommentModel> a=[];
-   FoodDetailPageView({Key? key, this.foodModel}) : super(key: key);
+   FoodDetailPageView({Key? key, required this.foodModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
