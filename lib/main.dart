@@ -9,6 +9,7 @@ import 'package:vbt_food_challange/features/homepage/view/homepage_view.dart';
 import 'package:vbt_food_challange/features/loginPage/view/login_view.dart';
 import 'package:vbt_food_challange/features/registerPage/view/register_view.dart';
 
+
 import 'core/constant/app/app_constants.dart';
 import 'features/contestPage/screens/ContestDetailPage/view/contestdetail_view_page.dart';
 import 'features/onboardingpage/view/onboarding_view.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       home: RegisterView(),
+
       theme: ThemeManager.createTheme(AppThemeLight()),
     );
   }
