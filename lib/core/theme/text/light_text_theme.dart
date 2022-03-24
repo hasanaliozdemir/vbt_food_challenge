@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/core/theme/text/text_theme.dart';
 
 class TextThemeLight implements ITextTheme {
@@ -51,7 +52,8 @@ class TextThemeLight implements ITextTheme {
       headline5: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       bodyText1: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
       subtitle2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
-    ).apply(bodyColor: primaryColor);
+      bodyText2: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+    ).apply(bodyColor: AppColors().black);
     fontFamily = GoogleFonts.poppins().fontFamily;
   }
 }

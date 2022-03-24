@@ -14,6 +14,7 @@ import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
 
 import 'core/constant/app/app_constants.dart';
 
+import 'features/addFoodPage/view/addFoodPage_view.dart';
 import 'features/contestPage/views/ContestDetailPage/view/contestdetail_view_page.dart';
 import 'features/contestPage/views/ContestPage/view/contest_view.dart';
 import 'features/contestPage/views/contestFinishedDetailPage/finishedContestPage.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
    
       initialRoute: '/',
       routes:{
-         "/": (context)=> const HomePageView(),
+         "/": (context)=> const AddFoodPageView(),
         // "/searchPage" : (context)=>SearchPageView(),
         // "/contestPage" : (context)=>ContestPageView(),
         // "/profilePage" : (context)=>ProfilPageView(),

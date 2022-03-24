@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -8,11 +10,29 @@ class FoodListService{
 
  final CollectionReference _foodList=FirebaseFirestore.instance.collection("/foods");
  final DocumentReference _foodOne =FirebaseFirestore.instance.doc("/foods/K5Gz9ErlFomC6IaQ7rgF");
- getOneFood()async{
-   DocumentSnapshot response =await _foodOne.get();
-   //print(response.data().toString());
-   //FoodModel a =FoodModel.fromFirestore(response);
-   //print("kategori : "+a.name.toString());
- 
- }
+
+
+  getListFood() async {
+    var response = await FirebaseFirestore.instance.collection("foods").get();
+    
+    var allFoods = response.docs.map((e)=>
+      FoodModel.fromJson(e.data())).toList();
+    return allFoods;
+  }
+
+   getMostLikedListFood() async {
+    var response = await FirebaseFirestore.instance.collection("foods").get();
+    
+    var allFoods = response.docs.map((e)=>
+      FoodModel.fromJson(e.data())).toList();
+    return allFoods;
+  }
+  getUser(String ref)async{
+   DocumentSnapshot<Map<String,dynamic>> user = await FirebaseFirestore.instance.doc(ref).get();
+    print(user.data());
+    return user.data()?['name'];
+  }
+
+
 }
+
