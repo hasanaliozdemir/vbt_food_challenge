@@ -32,11 +32,15 @@ class LoginView extends StatelessWidget {
             if (state is LoginLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is LoginSuccess) {
-              Navigator.pushNamed(
-                context,
-                "/homePage");
+
+//               Navigator.pushReplacementNamed(context, "/");
+
+//               Navigator.pushNamed(
+//                 context,
+//                 "/homePage");
               
   
+
             }
             return SingleChildScrollView(
               child: SizedBox(
@@ -63,6 +67,7 @@ class LoginView extends StatelessWidget {
                               textEditingController: passwordController,
                               hintText: 'Şifre',
                               textInputType: TextInputType.name,
+                              isPass: true,
                             ),
                           ],
                         ),
@@ -73,7 +78,16 @@ class LoginView extends StatelessWidget {
                     SizedBox(height: context.height * 0.05),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/registerPage');
+
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => RegisterView(),
+//                           ),
+//                         );
+
+//                         Navigator.pushNamed(context, '/registerPage');
+
                       },
                       child: Text(
                         'Hesabın yok mu? Kayıt ol ',
