@@ -5,6 +5,9 @@ import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/homepage_strings.dart';
 import 'package:vbt_food_challange/core/widgets/food_container.dart';
 import 'package:vbt_food_challange/features/addFoodPage/viewmodel/cubit/foodadd_cubit.dart';
+import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
+import 'package:vbt_food_challange/features/contestPage/views/contestFinishedDetailPage/finishedContestPage.dart';
+import 'package:vbt_food_challange/features/foodDetailPage/view/detail_view.dart';
 import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 import 'package:vbt_food_challange/features/homePage/service/foodList_Service.dart';
 import 'package:vbt_food_challange/features/homePage/viewmodel/cubit/homepageview_cubit.dart';
@@ -54,7 +57,7 @@ class HomePageView extends StatelessWidget {
 
                   //Tamamlanan Yarışmalar
 
-                  _buildFinishedContests(bodyTitleStyle, context, _url),
+                  _buildFinishedContests(bodyTitleStyle, context, context.read<HomePageViewCubit>().finishedContest),
 
                   //Son Eklenen Tarifler
 
@@ -87,7 +90,7 @@ class HomePageView extends StatelessWidget {
               shrinkWrap: true,
               //scrollDirection: Axis.vertical,
              physics: NeverScrollableScrollPhysics(),
-              itemCount: list?.length,
+              itemCount: 5,
 
               itemBuilder: (context, index) {
                 return Padding(
@@ -99,7 +102,8 @@ class HomePageView extends StatelessWidget {
                     textisUp: true,
                     foodName: list?[index].name,
                     cooker:"Ayşe ",
-                  ),
+                    onpressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) =>FoodDetailPageView(foodModel: list?[index],),))),
+                  
                 );
               }),
         ),
@@ -108,7 +112,7 @@ class HomePageView extends StatelessWidget {
   }
 
   Column _buildFinishedContests(
-      TextStyle bodyTitleStyle, BuildContext context, String _url) {
+      TextStyle bodyTitleStyle, BuildContext context, List<ContestModel>? list) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -125,20 +129,19 @@ class HomePageView extends StatelessWidget {
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: list?.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
-                    url: _url,
+                    url: list?[index].imageUrl??"null",
                     width: context.width * 1.2 / 2,
-                    foodName: "İskender",
+                    foodName: list?[index].name,
                     cooker: "Ayşe",
-                    rating: 4.5,
                     participants: 25,
                     onpressed: (){
                       //tamamlanan yarışmalara gidecek
-                      Navigator.pushNamed(context, "/finishContestDetail");
+                      Navigator.push(context,MaterialPageRoute(builder: ((context) => FinishedContestPageView(model: list?[index],))));
                       }
                   ),
                 );
@@ -161,7 +164,7 @@ class HomePageView extends StatelessWidget {
           ),
         ),
         Container(
-          height: context.height * 28 / 100,
+          height: context.height * 33 / 100,
           width: double.infinity,
           child: ListView.builder(
               shrinkWrap: true,
@@ -174,8 +177,10 @@ class HomePageView extends StatelessWidget {
                     url: list?[index].imageUrls?[0],
                     width: context.width * 1.5 / 2,
                     foodName: list?[index].name,
+                    rating: double.parse(list?[index].rating.toString()??"5"),
                     onpressed: (){
                       //food detail'e göndericek
+                      Navigator.push(context, MaterialPageRoute(builder: ((context) => FoodDetailPageView(foodModel: list?[index],))));
                     },
                   ),
                 );

@@ -129,7 +129,7 @@ class SearchPageView extends StatelessWidget {
             ),
           ),
           cursorColor: AppColors().lead,
-          style: TextStyle(color: AppColors().black),
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       ),
     );

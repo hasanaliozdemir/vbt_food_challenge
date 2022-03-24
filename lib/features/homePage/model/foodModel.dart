@@ -7,16 +7,17 @@ List<FoodModel> foodModelFromJson(String str) =>
 
 class FoodModel {
   FoodModel(
-      {this.id,
-      this.name,
-      this.category,
-      this.imageUrls,
-      this.recipe,
-      this.rating,
-      this.contestRef,
-      this.userRef,
+      {required this.id,
+      required this.name,
+      required this.category,
+      required this.imageUrls,
+      required this.recipe,
+      required this.rating,
+      required this.contestRef,
+      required this.userRef,
       this.commentList,
-      this.materials});
+      this.materials
+      });
   int? id;
   String? name;
   String? category;
