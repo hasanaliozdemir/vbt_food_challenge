@@ -50,14 +50,12 @@ class AddFoodPageViewBody extends StatelessWidget {
                     )
                               : Container(
                                   height: context.height / 5,
-                                  width: context.width*2/3,
+                                  width: context.width*2/4,
                                   decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 2,
-                      color: Colors.grey,
-                    ),
+                            borderRadius: context.highBorderRadius,
+                          
                                   ),
-                                 // child: Image.file(context.read<FoodAddCubit>().image);
+                                 child: Image.file(context.read<FoodAddCubit>().image!)
                                 ),
                            //select Menu
                           Container(
@@ -87,7 +85,7 @@ class AddFoodPageViewBody extends StatelessWidget {
                         ]
                           ),
                   ),
-                  
+            
             
                   Padding(
                     padding: const EdgeInsets.only(bottom:8.0,top: 8),

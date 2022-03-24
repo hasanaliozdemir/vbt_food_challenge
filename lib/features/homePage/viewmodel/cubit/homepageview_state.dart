@@ -5,7 +5,9 @@ abstract class HomePageViewState {}
 
 class HomepageviewInitial extends HomePageViewState {}
 class HomepageviewCompleted extends HomePageViewState {
- final List<FoodModel>? a;
+ final List<FoodModel>? mostLikedFoods;
+ final List<FoodModel>? lastAddedFoods;
+ final List<ContestModel>? FinishedContestFoods;
 
-  HomepageviewCompleted(this.a);
+  HomepageviewCompleted(this.mostLikedFoods,this.lastAddedFoods,this.FinishedContestFoods);
 }

@@ -9,15 +9,19 @@ import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
 import 'package:vbt_food_challange/features/loginPage/view/login_view.dart';
 import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
+import 'package:vbt_food_challange/features/registerPage/view/register_view.dart';
 import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
 
 import 'core/constant/app/app_constants.dart';
 
 import 'features/addFoodPage/view/addFoodPage_view.dart';
 import 'features/contestPage/views/ContestDetailPage/view/contestdetail_view_page.dart';
-import 'features/contestPage/views/ContestPage/view/contest_view.dart';
+import 'features/contestPage/views/ContestPage/view/contestHomePage_view.dart';
 import 'features/contestPage/views/contestFinishedDetailPage/finishedContestPage.dart';
+import 'features/foodDetailPage/view/detail_view.dart';
 import 'features/homePage/model/foodModel.dart';
+import 'features/loginPage/view/login_view.dart';
+import 'product/staticListData/foodmodelData.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,19 +51,31 @@ class MyApp extends StatelessWidget {
         theme: ThemeManager.createTheme(AppThemeLight()),
         initialRoute: '/',
         routes: {
+
           "/": (context) => const LoginView(),
           // "/searchPage" : (context)=>SearchPageView(),
           // "/contestPage" : (context)=>ContestPageView(),
           // "/profilePage" : (context)=>ProfilPageView(),
         },
         onGenerateRoute: (settings) {
-          //Navigator.pushNamedAndRemoveUntil(context, "/filteredPage/$_id", (route) => false);
-          // Bu şekilde onGenerateRoute kısmına yolluyorum. Ardından split fonksiyonu ile ayırıyorum.
-          //filtered[1] =filteredPAGE filtered[2] = _id değerim oluyor.
+        
+
+          "/": (context) =>  HomePageView(),
+        },
+        onGenerateRoute: (settings) {
+         
           List<String> filtered = settings.name!.split("/");
           switch (filtered[1]) {
             //switch içinden filtered[1] değrimi eşleştiriyorum.Çünkü aynı sayfayı bir çok farklı data için kullanıyorum.
             case "/":
+              return PageTransition(
+                //ben filteredPage içinde bir fonksiyona eleman taşıyorum Sen sadece filtered[2] kullanarak yapabilirsin.
+                child: HomePageView(),
+                type: PageTransitionType.fade,
+                settings: settings,
+                reverseDuration: Duration(seconds: 0),
+              );
+            case "/homePage":
               return PageTransition(
                 //ben filteredPage içinde bir fonksiyona eleman taşıyorum Sen sadece filtered[2] kullanarak yapabilirsin.
                 child: HomePageView(),
@@ -95,25 +111,39 @@ class MyApp extends StatelessWidget {
                 child: FinishedContestPageView(
                   model: ContestModel(),
                 ),
-                type: PageTransitionType.fade,
-                settings: settings,
-                reverseDuration: Duration(seconds: 0),
-              );
 
-            case "profilePage":
-              return PageTransition(
-                child: ProfilPageView(),
-                type: PageTransitionType.fade,
-                settings: settings,
-                reverseDuration: Duration(seconds: 0),
-              );
-            case 'loginPage':
-              return PageTransition(
-                child: LoginView(),
-                type: PageTransitionType.fade,
-                settings: settings,
-                reverseDuration: Duration(seconds: 0),
-              );
+//                 type: PageTransitionType.fade,
+//                 settings: settings,
+//                 reverseDuration: Duration(seconds: 0),
+//               );
+            
+          
+//             case "registerPage":
+//               return PageTransition(
+//                 child: RegisterView(),
+
+//                 type: PageTransitionType.fade,
+//                 settings: settings,
+//                 reverseDuration: Duration(seconds: 0),
+//               );
+
+//             case "profilePage":
+//               return PageTransition(
+//                 child: ProfilPageView(),
+//                 type: PageTransitionType.fade,
+//                 settings: settings,
+//                 reverseDuration: Duration(seconds: 0),
+//               );
+
+//             case 'loginPage':
+//               return PageTransition(
+//                 child: LoginView(),
+//                 type: PageTransitionType.fade,
+//                 settings: settings,
+//                 reverseDuration: Duration(seconds: 0),
+//               );
+
+
           }
         });
   }
