@@ -53,7 +53,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeManager.createTheme(AppThemeLight()),
         initialRoute: '/',
         routes: {
+
           "/": (context) => LoginView(),
+        
+
         },
         onGenerateRoute: (settings) {
           //Navigator.pushNamedAndRemoveUntil(context, "/loginPage/", (route) => false);

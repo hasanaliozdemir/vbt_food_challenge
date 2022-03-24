@@ -30,10 +30,17 @@ class FoodModel {
   List<MaterialModel>? materials;
 
   FoodModel.fromJson(Map<String, dynamic> json) {
+    var _imageData;
+    if (json["imageUrls"] is String) {
+      _imageData = [json["imageUrls"]];
+    }else{
+      _imageData = json["imageUrls"];
+    }
+
     id = json["id"];
     name = json["name"];
     category = json["category"];
-    imageUrls = json["imageUrls"];
+    imageUrls = _imageData;
     recipe = json["recipe"];
     rating = json["rating"];
     contestRef = json["contestRef"];
