@@ -7,36 +7,34 @@ import 'package:vbt_food_challange/features/registerPage/service/register_servic
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final GlobalKey<FormState> formKey;
 
-  final TextEditingController nameController;
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
 
-  final RegisterService registerService;
 
-  bool isRegisterFail = false;
+  RegisterCubit() : super(RegisterInitial());
+
   bool isLoading = false;
+  bool isRegisterFail=false;
+   GlobalKey<FormState> formKey = GlobalKey();
+  RegisterService registerService = RegisterService();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  FocusNode emailFocus=FocusNode();
+   FocusNode passwordFocus=FocusNode();
+    FocusNode nameFocus=FocusNode();
 
-  RegisterCubit({
-    required this.formKey,
-    required this.nameController,
-    required this.emailController,
-    required this.passwordController,
-    required this.registerService,
-  }) : super(RegisterInitial());
 
   void register(BuildContext context) {
-    if (formKey.currentState?.validate() ?? false) {
+    if (formKey.currentState!.validate()) {
       changeLoading();
       if (nameController.text.isNotEmpty &&
           emailController.text.isNotEmpty &&
           passwordController.text.isNotEmpty) {
         registerService
-            .createUser(
-          nameController.text,
-          emailController.text,
-          passwordController.text,
+            .signUp(
+          name:nameController.text,
+          email:emailController.text,
+          password : passwordController.text,
         )
             .catchError((e) {
           emit(RegisterFailure(error: e.toString()));
@@ -62,14 +60,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void registerSuccess(BuildContext context) {
     print('Yönlendiriliyor');
-    try {
-      Navigator.pushReplacementNamed(context, "/");
-
-      emit(RegisterComplated(message: 'Kayıt işlemi başarılı'));
-    } catch (e) {
-      print(e);
-      isRegisterFail = !isRegisterFail;
-    }
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>HomePageView()), (route) => false);
   }
 }
 

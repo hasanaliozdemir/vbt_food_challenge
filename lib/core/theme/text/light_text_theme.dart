@@ -46,7 +46,7 @@ class TextThemeLight implements ITextTheme {
   TextThemeLight(this.primaryColor) {
     data = const TextTheme(
       headline6: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-      subtitle1: TextStyle(fontSize: 30.0),
+      subtitle1: TextStyle(fontSize: 20.0),
       headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       caption: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
       headline5: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),

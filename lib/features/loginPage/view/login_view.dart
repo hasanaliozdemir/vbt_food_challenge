@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/widgets/custom_button.dart';
 import 'package:vbt_food_challange/core/widgets/text_field_input.dart';
@@ -8,6 +10,9 @@ import 'package:vbt_food_challange/features/loginPage/service/login_service.dart
 import 'package:vbt_food_challange/features/loginPage/viewmodel/cubit/login_cubit.dart';
 import 'package:vbt_food_challange/features/registerPage/view/register_view.dart';
 import 'package:vbt_food_challange/product/widgets/appbar.dart';
+
+import '../../../product/widgets/customTextFormField.dart';
+
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -21,27 +26,12 @@ class LoginView extends StatelessWidget {
     LoginService loginService = LoginService();
     return BlocProvider(
       create: (context) => LoginCubit(
-          formKey: formKey,
-          emailController: emailController,
-          passwordController: passwordController,
-          loginService: loginService),
+      ),
       child: Scaffold(
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {},
           builder: (context, state) {
-            if (state is LoginLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is LoginSuccess) {
-
-//               Navigator.pushReplacementNamed(context, "/");
-
-//               Navigator.pushNamed(
-//                 context,
-//                 "/homePage");
-              
-  
-
-            }
+           
             return SingleChildScrollView(
               child: SizedBox(
                 child: Column(
@@ -53,40 +43,52 @@ class LoginView extends StatelessWidget {
                       ),
                     ),
                     Form(
-                      key: formKey,
+                      key: context.read<LoginCubit>().formKey,
                       child: Padding(
                         padding: context.horizontalPaddingLow,
                         child: Column(
                           children: [
-                            TextFieldInput(
-                              textEditingController: emailController,
-                              hintText: 'Email',
-                              textInputType: TextInputType.emailAddress,
-                            ),
-                            TextFieldInput(
-                              textEditingController: passwordController,
-                              hintText: 'Şifre',
-                              textInputType: TextInputType.name,
-                              isPass: true,
-                            ),
+                            
+                               AuthTextField(
+                      controller: context.read<LoginCubit>().emailController,
+                      hintText: "email",
+                      isObsecure: false,
+                      node: FocusNode(),
+                      validator:EmailValidator(errorText: "Please enter your email"),
+                      changeObscureCallBack: () {},
+                    ),
+                            AuthTextField(
+                      controller: context.read<LoginCubit>().passwordController,
+                      hintText: "Password",
+                      node: FocusNode(),
+                      isObsecure: true,
+                      validator:RequiredValidator(errorText: 'password is required'), 
+                      changeObscureCallBack: () {
+                        context.read<LoginCubit>().changeObsecure();
+                      },
+                    ),
                           ],
                         ),
                       ),
                     ),
                     SizedBox(height: context.height * 0.02),
-                    loginButton(context),
+                     CustomButton(
+                        text: 'Giriş',
+                        isLoading: false,
+                        func: () {
+                          if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+                             ShowLoaderDialog(context,"text");
+                                LoginService().signInWithEmailAndPassword(context:context,email:context.read<LoginCubit>().emailController.text,
+                                password:context.read<LoginCubit>().passwordController.text);
+                        }
+                        }
+                      ),
                     SizedBox(height: context.height * 0.05),
                     InkWell(
                       onTap: () {
 
-//                         Navigator.push(
-//                           context,
-//                           MaterialPageRoute(
-//                             builder: (context) => RegisterView(),
-//                           ),
-//                         );
 
-//                         Navigator.pushNamed(context, '/registerPage');
+                        Navigator.pushNamed(context, '/registerPage');
 
                       },
                       child: Text(
@@ -104,24 +106,17 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Widget loginButton(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        if (state is LoginLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return CustomButton(
-            text: 'Giriş',
-            isLoading: false,
-            func: () {
-              context.read<LoginCubit>().login();
-            },
-          );
-        }
-      },
-    );
-  }
+
 }
+   ShowLoaderDialog(BuildContext context, text) {
+                                    AlertDialog alert = AlertDialog(
+                                      content: Text("yükleniyor bro"),
+                                    );
+                                    showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
+                                  }
