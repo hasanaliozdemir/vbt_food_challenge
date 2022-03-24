@@ -6,23 +6,26 @@ import 'package:vbt_food_challange/core/theme/app_theme.dart';
 import 'package:vbt_food_challange/features/contestPage/screens/ContestPage/view/contest_view.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
 import 'package:vbt_food_challange/features/homepage/view/homepage_view.dart';
-import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
+import 'package:vbt_food_challange/features/loginPage/view/login_view.dart';
+import 'package:vbt_food_challange/features/registerPage/view/register_view.dart';
 
 
 import 'core/constant/app/app_constants.dart';
 import 'features/contestPage/screens/ContestDetailPage/view/contestdetail_view_page.dart';
 import 'features/onboardingpage/view/onboarding_view.dart';
 
-void main() async{
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await EasyLocalization.ensureInitialized();
- 
-  runApp(EasyLocalization(
-    path: AppConstants.LANG_ASSET_PATH,
-    supportedLocales: LanguageManager.instance.supportedLocales,
-  child: MyApp()));
+
+  runApp(
+    EasyLocalization(
+      path: AppConstants.LANG_ASSET_PATH,
+      supportedLocales: LanguageManager.instance.supportedLocales,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +39,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home:  ProfilPageView(),
+      home: RegisterView(),
+
       theme: ThemeManager.createTheme(AppThemeLight()),
     );
   }
