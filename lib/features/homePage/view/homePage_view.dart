@@ -16,11 +16,10 @@ class HomePageView extends StatelessWidget {
   const HomePageView({Key? key}) : super(key: key);
 
   @override
-  
   Widget build(BuildContext context) {
-     FoodListService().getOneFood();
-    
-     TextStyle appbarTitleStyle = const TextStyle(
+    FoodListService().getOneFood();
+
+    TextStyle appbarTitleStyle = const TextStyle(
         fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black);
     TextStyle bodyTitleStyle = const TextStyle(
         fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black);
@@ -29,11 +28,9 @@ class HomePageView extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomePageViewCubit(),
       child: Scaffold(
-        appBar: header(context:context,name:"Ana Sayfa",isback:false),
+        appBar: header(context: context, name: "Ana Sayfa", isback: false),
         body: BlocConsumer<HomePageViewCubit, HomePageViewState>(
-          listener: (context, state) {
-            
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -73,18 +70,17 @@ class HomePageView extends StatelessWidget {
           ),
         ),
         Container(
-         
           width: double.infinity,
           child: ListView.builder(
               shrinkWrap: true,
               //scrollDirection: Axis.vertical,
-             physics: NeverScrollableScrollPhysics(),
+              physics: NeverScrollableScrollPhysics(),
               itemCount: 5,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
-                    height: context.height*25/100,
+                    height: context.height * 25 / 100,
                     width: double.infinity,
                     url: _url,
                     textisUp: true,
