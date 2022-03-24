@@ -44,7 +44,7 @@ class FoodDetailPageView extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ImageCardWidget(
-                            url: foodModel?.imageUrls?[0],
+                            url: foodModel?.imageUrls?[0]??"",
                             width: context.width,
                             height: context.height/4,
                             

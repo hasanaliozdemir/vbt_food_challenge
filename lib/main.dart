@@ -4,10 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:vbt_food_challange/core/constant/language_manager.dart';
+import 'package:vbt_food_challange/core/constant/strings/homepage_strings.dart';
 import 'package:vbt_food_challange/core/theme/app_theme.dart';
 import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
-import 'package:vbt_food_challange/features/loginPage/view/login_view.dart';
 import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
 import 'package:vbt_food_challange/features/registerPage/view/register_view.dart';
 import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
@@ -21,6 +21,7 @@ import 'features/contestPage/views/contestFinishedDetailPage/finishedContestPage
 import 'features/foodDetailPage/view/detail_view.dart';
 import 'features/homePage/model/foodModel.dart';
 import 'features/loginPage/view/login_view.dart';
+import 'features/profilPage/service/profile_service.dart';
 import 'product/staticListData/foodmodelData.dart';
 
 void main() async {
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProfileService().getUser();
     return MaterialApp(
         localizationsDelegates: context.localizationDelegates,
         locale: context.locale,
@@ -51,31 +53,18 @@ class MyApp extends StatelessWidget {
         theme: ThemeManager.createTheme(AppThemeLight()),
         initialRoute: '/',
         routes: {
-
-          "/": (context) => const LoginView(),
-          // "/searchPage" : (context)=>SearchPageView(),
-          // "/contestPage" : (context)=>ContestPageView(),
-          // "/profilePage" : (context)=>ProfilPageView(),
+          "/": (context) => LoginView(),
         },
         onGenerateRoute: (settings) {
-        
-
-          "/": (context) =>  HomePageView(),
-        },
-        onGenerateRoute: (settings) {
-         
+          //Navigator.pushNamedAndRemoveUntil(context, "/loginPage/", (route) => false);
+          // Bu şekilde onGenerateRoute kısmına yolluyorum. Ardından split fonksiyonu ile ayırıyorum.
+          //filtered[1] =filteredPAGE filtered[2] = _id değerim oluyor.
           List<String> filtered = settings.name!.split("/");
           switch (filtered[1]) {
             //switch içinden filtered[1] değrimi eşleştiriyorum.Çünkü aynı sayfayı bir çok farklı data için kullanıyorum.
-            case "/":
-              return PageTransition(
-                //ben filteredPage içinde bir fonksiyona eleman taşıyorum Sen sadece filtered[2] kullanarak yapabilirsin.
-                child: HomePageView(),
-                type: PageTransitionType.fade,
-                settings: settings,
-                reverseDuration: Duration(seconds: 0),
-              );
-            case "/homePage":
+            
+            
+              case "/homePome":
               return PageTransition(
                 //ben filteredPage içinde bir fonksiyona eleman taşıyorum Sen sadece filtered[2] kullanarak yapabilirsin.
                 child: HomePageView(),
@@ -111,39 +100,26 @@ class MyApp extends StatelessWidget {
                 child: FinishedContestPageView(
                   model: ContestModel(),
                 ),
+                type: PageTransitionType.fade,
+                settings: settings,
+                reverseDuration: Duration(seconds: 0),
+              );
 
-//                 type: PageTransitionType.fade,
-//                 settings: settings,
-//                 reverseDuration: Duration(seconds: 0),
-//               );
-            
-          
-//             case "registerPage":
-//               return PageTransition(
-//                 child: RegisterView(),
+            case "registerPage":
+              return PageTransition(
+                child: RegisterView(),
+                type: PageTransitionType.fade,
+                settings: settings,
+                reverseDuration: Duration(seconds: 0),
+              );
 
-//                 type: PageTransitionType.fade,
-//                 settings: settings,
-//                 reverseDuration: Duration(seconds: 0),
-//               );
-
-//             case "profilePage":
-//               return PageTransition(
-//                 child: ProfilPageView(),
-//                 type: PageTransitionType.fade,
-//                 settings: settings,
-//                 reverseDuration: Duration(seconds: 0),
-//               );
-
-//             case 'loginPage':
-//               return PageTransition(
-//                 child: LoginView(),
-//                 type: PageTransitionType.fade,
-//                 settings: settings,
-//                 reverseDuration: Duration(seconds: 0),
-//               );
-
-
+            case "profilePage":
+              return PageTransition(
+                child: ProfilPageView(),
+                type: PageTransitionType.fade,
+                settings: settings,
+                reverseDuration: Duration(seconds: 0),
+              );
           }
         });
   }

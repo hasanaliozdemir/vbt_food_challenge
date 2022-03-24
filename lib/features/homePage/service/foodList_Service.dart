@@ -37,6 +37,8 @@ class FoodListService{
       ContestModel.fromJson(e.data())).toList();
     return allContest;
   }
+
+  
   getUser(String ref)async{
    DocumentSnapshot<Map<String,dynamic>> user = await FirebaseFirestore.instance.doc(ref).get();
     print(user.data());

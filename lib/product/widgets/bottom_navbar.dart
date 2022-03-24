@@ -27,7 +27,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           item(
             icon: 'home',
             title: 'Anasayfa',
-            pageName: "",
+            pageName: "homePage",
             id: 0,
           ),
           item(
@@ -61,9 +61,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }) {
     return InkWell(
       onTap: () {
-        Navigator.pushReplacementNamed(context, "/$pageName");
-        // Navigator.of(context)
-        //     .pushReplacement(MaterialPageRoute(builder: (context) => pageName));
+
+      id!=0? Navigator.pushNamedAndRemoveUntil(context, "/$pageName", (route) => false):
+       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePageView(),));
+       
       },
       child: Column(
         children: [

@@ -90,7 +90,7 @@ class HomePageView extends StatelessWidget {
               shrinkWrap: true,
               //scrollDirection: Axis.vertical,
              physics: NeverScrollableScrollPhysics(),
-              itemCount: 5,
+              itemCount: list?.length,
 
               itemBuilder: (context, index) {
                 return Padding(
@@ -98,7 +98,7 @@ class HomePageView extends StatelessWidget {
                   child: ImageCardWidget(
                     height: context.height * 25 / 100,
                     width: double.infinity,
-                    url: list?[index].imageUrls?[0],
+                    url: list?[index].imageUrls?[0]??"",
                     textisUp: true,
                     foodName: list?[index].name,
                     cooker:"Ayşe ",
@@ -174,7 +174,7 @@ class HomePageView extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
-                    url: list?[index].imageUrls?[0],
+                    url: list?[index].imageUrls?[0]??"",
                     width: context.width * 1.5 / 2,
                     foodName: list?[index].name,
                     rating: double.parse(list?[index].rating.toString()??"5"),
