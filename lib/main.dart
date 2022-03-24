@@ -7,11 +7,9 @@ import 'package:vbt_food_challange/core/constant/language_manager.dart';
 import 'package:vbt_food_challange/core/theme/app_theme.dart';
 import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
+import 'package:vbt_food_challange/features/loginPage/view/login_view.dart';
 import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
 import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
-
-
-
 
 import 'core/constant/app/app_constants.dart';
 
@@ -41,29 +39,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      locale: context.locale,
-      supportedLocales: context.supportedLocales,
-      title: 'Material App',
-      debugShowCheckedModeBanner: false,
-
-      theme: ThemeManager.createTheme(AppThemeLight()),
-   
-      initialRoute: '/',
-      routes:{
-         "/": (context)=> const AddFoodPageView(),
-        // "/searchPage" : (context)=>SearchPageView(),
-        // "/contestPage" : (context)=>ContestPageView(),
-        // "/profilePage" : (context)=>ProfilPageView(),
-
-       
-      },
-        onGenerateRoute: (settings){
-        //Navigator.pushNamedAndRemoveUntil(context, "/filteredPage/$_id", (route) => false);
+        localizationsDelegates: context.localizationDelegates,
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        title: 'Material App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeManager.createTheme(AppThemeLight()),
+        initialRoute: '/',
+        routes: {
+          "/": (context) => const LoginView(),
+          // "/searchPage" : (context)=>SearchPageView(),
+          // "/contestPage" : (context)=>ContestPageView(),
+          // "/profilePage" : (context)=>ProfilPageView(),
+        },
+        onGenerateRoute: (settings) {
+          //Navigator.pushNamedAndRemoveUntil(context, "/filteredPage/$_id", (route) => false);
           // Bu şekilde onGenerateRoute kısmına yolluyorum. Ardından split fonksiyonu ile ayırıyorum.
-        //filtered[1] =filteredPAGE filtered[2] = _id değerim oluyor.
+          //filtered[1] =filteredPAGE filtered[2] = _id değerim oluyor.
           List<String> filtered = settings.name!.split("/");
-          switch(filtered[1]){
+          switch (filtered[1]) {
             //switch içinden filtered[1] değrimi eşleştiriyorum.Çünkü aynı sayfayı bir çok farklı data için kullanıyorum.
             case "/":
               return PageTransition(
@@ -88,7 +82,7 @@ class MyApp extends StatelessWidget {
                 settings: settings,
                 reverseDuration: Duration(seconds: 0),
               );
-               case "contestDetail":
+            case "contestDetail":
               return PageTransition(
                 child: ContestDetailPageView(),
                 type: PageTransitionType.fade,
@@ -96,14 +90,15 @@ class MyApp extends StatelessWidget {
                 reverseDuration: Duration(seconds: 0),
               );
 
-               case "finishContestDetail":
+            case "finishContestDetail":
               return PageTransition(
-                child: FinishedContestPageView(model: ContestModel(),),
+                child: FinishedContestPageView(
+                  model: ContestModel(),
+                ),
                 type: PageTransitionType.fade,
                 settings: settings,
                 reverseDuration: Duration(seconds: 0),
               );
-              
 
             case "profilePage":
               return PageTransition(
@@ -111,12 +106,15 @@ class MyApp extends StatelessWidget {
                 type: PageTransitionType.fade,
                 settings: settings,
                 reverseDuration: Duration(seconds: 0),
-              );;
-
-          
+              );
+            case 'loginPage':
+              return PageTransition(
+                child: LoginView(),
+                type: PageTransitionType.fade,
+                settings: settings,
+                reverseDuration: Duration(seconds: 0),
+              );
           }
-
-        }
-    );
+        });
   }
 }

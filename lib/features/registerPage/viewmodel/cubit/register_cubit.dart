@@ -39,17 +39,14 @@ class RegisterCubit extends Cubit<RegisterState> {
           passwordController.text,
         )
             .catchError((e) {
-          print('HATA YAKALNDIII CATCHG ERRIRR');
+          emit(RegisterFailure(error: e.toString()));
         });
       }
-      print('TRY isRegisterFail : : : : $isRegisterFail');
-    }
-    if (isRegisterFail == false) {
-      print('isRegisterFail : : : : $isRegisterFail');
-
-      registerSuccess(context);
-    } else {
-      changeLoading();
+      if (isRegisterFail == false) {
+        registerSuccess(context);
+      } else {
+        changeLoading();
+      }
     }
   }
 
@@ -66,11 +63,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   void registerSuccess(BuildContext context) {
     print('Yönlendiriliyor');
     try {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => HomePageView()),
-        (route) => false,
-      );
+      Navigator.pushReplacementNamed(context, "/");
+
       emit(RegisterComplated(message: 'Kayıt işlemi başarılı'));
     } catch (e) {
       print(e);

@@ -6,10 +6,9 @@ import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
 import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
 import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
 
-
 class BottomNavbar extends StatefulWidget {
   final int pageid;
-  const BottomNavbar({Key? key,required this.pageid}) : super(key: key);
+  const BottomNavbar({Key? key, required this.pageid}) : super(key: key);
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -20,18 +19,35 @@ class _BottomNavbarState extends State<BottomNavbar> {
   Widget build(BuildContext context) {
     return Container(
       height: context.height * 0.1,
-      padding: EdgeInsets.only(top: context.height/100),
-      
-    
+      padding: EdgeInsets.only(top: context.height / 100),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
-        
         children: [
-          item(icon: 'home', title: 'Anasayfa', pageName: "",id:0),
-          item(icon: 'search', title: 'Tarif Ara', pageName: "searchPage",id:1),
-          item(icon: 'chef', title: 'Yarışmalar', pageName: "contestPage",id:2),
-          item(icon: 'profile', title: 'Profil', pageName: "profilePage",id:3),
+          item(
+            icon: 'home',
+            title: 'Anasayfa',
+            pageName: "",
+            id: 0,
+          ),
+          item(
+            icon: 'search',
+            title: 'Tarif Ara',
+            pageName: "searchPage",
+            id: 1,
+          ),
+          item(
+            icon: 'chef',
+            title: 'Yarışmalar',
+            pageName: "contestPage",
+            id: 2,
+          ),
+          item(
+            icon: 'profile',
+            title: 'Profil',
+            pageName: "profilePage",
+            id: 3,
+          ),
         ],
       ),
     );
@@ -41,9 +57,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
     required String title,
     required String icon,
     required String pageName,
-    required int id
+    required int id,
   }) {
-     
     return InkWell(
       onTap: () {
         Navigator.pushReplacementNamed(context, "/$pageName");
@@ -55,7 +70,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           SvgPicture.asset(
             'assets/icons/bottom_navbar/$icon.svg',
             height: 35,
-            color: widget.pageid==id? AppColors().red:AppColors().darkGrey,
+            color: widget.pageid == id ? AppColors().red : AppColors().darkGrey,
           ),
           Text(
             title,

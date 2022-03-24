@@ -106,11 +106,12 @@ class _RegisterViewState extends State<RegisterView> {
           );
         } else {
           return CustomButton(
-              text: 'Kaydet',
-              isLoading: false,
-              func: () {
-                context.read<RegisterCubit>().register(context);
-              });
+            text: 'Kaydet',
+            isLoading: false,
+            func: () {
+              context.read<RegisterCubit>().register(context);
+            },
+          );
         }
       },
     );
