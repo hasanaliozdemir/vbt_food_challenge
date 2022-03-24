@@ -1,43 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestDetail_strings.dart';
+import 'package:vbt_food_challange/core/constant/strings/contestFinishDetail_strings.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestpage_strings.dart';
+import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
 import '../../../../../core/widgets/category_container.dart';
 import '../../../../../core/widgets/food_container.dart';
 import '../../../../../product/widgets/appbar.dart';
+import '../../../../core/theme/color/color_theme.dart';
+import '../../model/contest_model.dart';
 
-
-class ContestDetailPageView extends StatelessWidget {
-  const ContestDetailPageView({Key? key}) : super(key: key);
+//kazanan kişi eklenecek
+class FinishedContestPageView extends StatelessWidget {
+  final ContestModel? model;
+  const FinishedContestPageView({Key? key,required this.model}) : super(key: key);
 
   @override
   
   Widget build(BuildContext context) {
+      bool isDark = Theme.of(context).brightness == Brightness.dark;
+  
+      TextStyle? appbarTitleStyle =  Theme.of(context).textTheme.headline5?.copyWith(
+                
+                  color: isDark ? AppColors().white : AppColors().black,
+                  fontWeight: FontWeight.bold,);
 
-    List<String> category= ["Tatlı","Ana yemek","Ara sıcak","Çorba","Salata"];
-      TextStyle appbarTitleStyle = const TextStyle(
-        fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black);
-    TextStyle bodyTitleStyle = const TextStyle(
-        fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black);
+    TextStyle? bodyTitleStyle =  Theme.of(context).textTheme.headline5?.copyWith(
+                
+                  color: isDark ? AppColors().white : AppColors().black,
+                  fontWeight: FontWeight.bold,);
+        
         TextStyle kalanTimeTextStyle = const TextStyle(
       color: Colors.grey, fontSize: 15, fontWeight: FontWeight.bold);
-    String _url =
-        "https://galeri13.uludagsozluk.com/624/sarma-beyti_1776232.jpg";
+
+      
+
+      TextStyle? bodyTextStyle=Theme.of(context).textTheme.bodyText1?.copyWith(
+        color:isDark ? AppColors().white : AppColors().black,);
+
     return Scaffold(
-      appBar: header(context:context,name:"İskender",isback:true),
+      appBar: header(context:context,name:model?.name??"",isback:true),
       body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Column(
+              child: model!=null?Column(
                 children: [
                       
 
-                  _buildImageOfContest(kalanTimeTextStyle, context, _url),
+                  _buildImageOfContest(kalanTimeTextStyle, context,model?.imageUrl?[0]??""),
                   
-                  _buildMiddleContent(appbarTitleStyle, bodyTitleStyle),
+                  _buildMiddleContent(appbarTitleStyle, bodyTitleStyle,bodyTextStyle),
                   //Tamamlanan Yarışmalar
-                  _participantRecipe(bodyTitleStyle, _url),
+                  _participantRecipe(bodyTitleStyle, model?.imageUrl?[0]??""),
 
                  
 
@@ -45,32 +60,32 @@ class ContestDetailPageView extends StatelessWidget {
 
                  
                 ],
-              ),
+              ):Center(child:Text("Not Found")),
             ),
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(pageid:2),
     );
   }
 
-  Padding _buildMiddleContent(TextStyle appbarTitleStyle, TextStyle bodyTitleStyle) {
+  Padding _buildMiddleContent(TextStyle? appbarTitleStyle, TextStyle? bodyTitleStyle,TextStyle? bodyTextStyle) {
     return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      Text(ContestDetailPageStrings.kazanilacakRozet,style: appbarTitleStyle,),
+                      Text(ContestFinishedDetailPageStrings.kazanilacakRozet,style: appbarTitleStyle,),
                       Padding(
                         padding: const EdgeInsets.only(bottom:16.0),
                         child: Icon(Icons.badge,size: 50,color: Colors.pink,),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        child: Text(ContestDetailPageStrings.descriptionTitle,style: bodyTitleStyle,)),
-                      Text(ContestDetailPageStrings.description,textAlign: TextAlign.center,)
+                        child: Text(ContestFinishedDetailPageStrings.descriptionTitle,style: bodyTitleStyle,)),
+                      Text(model?.description??"",textAlign: TextAlign.center,style: bodyTextStyle)
                     ],
                   ),
                 );
   }
 
-  Column _participantRecipe(TextStyle bodyTitleStyle, String _url) {
+  Column _participantRecipe(TextStyle? bodyTitleStyle, String _url) {
     return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -81,6 +96,8 @@ class ContestDetailPageView extends StatelessWidget {
           style: bodyTitleStyle,
         ),
       ),
+
+      //Future Builder ile çevrelenip yarışmaya katılanlar
       Container(
         
         width: double.infinity,
@@ -139,8 +156,8 @@ class ContestDetailPageView extends StatelessWidget {
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: [
-                         Text(ContestDetailPageStrings.remainingTime,style: kalanTimeTextStyle,),
-                         Text(ContestDetailPageStrings.participantNumber+" kişi katıldı",style: kalanTimeTextStyle,)
+                         Text(ContestFinishedDetailPageStrings.finishTimeText,style: kalanTimeTextStyle,),
+                         Text(ContestFinishedDetailPageStrings.participantNumber+" kişi katıldı",style: kalanTimeTextStyle,)
 
                        ],
                      )

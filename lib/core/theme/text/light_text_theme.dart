@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/core/theme/text/text_theme.dart';
 
 class TextThemeLight implements ITextTheme {
@@ -45,13 +46,14 @@ class TextThemeLight implements ITextTheme {
   TextThemeLight(this.primaryColor) {
     data = const TextTheme(
       headline6: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-      subtitle1: TextStyle(fontSize: 16.0),
-      headline4: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      subtitle1: TextStyle(fontSize: 30.0),
+      headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       caption: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
       headline5: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       bodyText1: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
       subtitle2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
-    ).apply(bodyColor: primaryColor);
+      bodyText2: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+    ).apply(bodyColor: AppColors().black);
     fontFamily = GoogleFonts.poppins().fontFamily;
   }
 }

@@ -39,7 +39,7 @@ class ProfilPageView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(pageid:3),
     );
   }
 

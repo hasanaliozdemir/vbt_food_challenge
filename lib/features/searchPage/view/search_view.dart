@@ -38,7 +38,7 @@ class SearchPageView extends StatelessWidget {
 
   Scaffold _buildScaffold(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomNavbar(),
+      bottomNavigationBar: const BottomNavbar(pageid:1),
       body: Column(
         children: [
           SizedBox(

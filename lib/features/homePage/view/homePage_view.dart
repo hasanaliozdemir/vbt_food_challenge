@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/homepage_strings.dart';
 import 'package:vbt_food_challange/core/widgets/food_container.dart';
+import 'package:vbt_food_challange/features/addFoodPage/viewmodel/cubit/foodadd_cubit.dart';
 import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 import 'package:vbt_food_challange/features/homePage/service/foodList_Service.dart';
 import 'package:vbt_food_challange/features/homePage/viewmodel/cubit/homepageview_cubit.dart';
@@ -16,29 +17,40 @@ class HomePageView extends StatelessWidget {
   const HomePageView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    FoodListService().getOneFood();
+  
+  Widget build(BuildContext context){
+     
+    
+     TextStyle appbarTitleStyle = const TextStyle(
 
-    TextStyle appbarTitleStyle = const TextStyle(
         fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black);
     TextStyle bodyTitleStyle = const TextStyle(
         fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black);
     String _url =
         "https://galeri13.uludagsozluk.com/624/sarma-beyti_1776232.jpg";
+
+
     return BlocProvider(
       create: (context) => HomePageViewCubit(),
       child: Scaffold(
-        appBar: header(context: context, name: "Ana Sayfa", isback: false),
+        appBar: header(context:context,name:"Ana Sayfa",isback:false),
+         bottomNavigationBar: BottomNavbar(pageid:0),
         body: BlocConsumer<HomePageViewCubit, HomePageViewState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+           
+          },
+
           builder: (context, state) {
-            return SingleChildScrollView(
+            return context.read<HomePageViewCubit>().isLoading?Center(child: CircularProgressIndicator(),):
+            SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
                   //En Beğeniler Tarifler
+                 
+               
 
-                  _buildMostLikedRecipes(bodyTitleStyle, context, _url),
+                  _buildMostLikedRecipes(bodyTitleStyle, context, context.read<HomePageViewCubit>().mostLikedFoodList),
 
                   //Tamamlanan Yarışmalar
 
@@ -46,19 +58,19 @@ class HomePageView extends StatelessWidget {
 
                   //Son Eklenen Tarifler
 
-                  _buildLastAddedRecipes(bodyTitleStyle, context, _url),
+                  _buildLastAddedRecipes(bodyTitleStyle, context, context.read<HomePageViewCubit>().lastFoodList),
                 ],
               ),
             );
           },
         ),
-        bottomNavigationBar: BottomNavbar(),
+       
       ),
     );
   }
 
   Column _buildLastAddedRecipes(
-      TextStyle bodyTitleStyle, BuildContext context, String _url) {
+      TextStyle bodyTitleStyle, BuildContext context, List<FoodModel>? list) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -74,18 +86,19 @@ class HomePageView extends StatelessWidget {
           child: ListView.builder(
               shrinkWrap: true,
               //scrollDirection: Axis.vertical,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 5,
+             physics: NeverScrollableScrollPhysics(),
+              itemCount: list?.length,
+
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
                     height: context.height * 25 / 100,
                     width: double.infinity,
-                    url: _url,
+                    url: list?[index].imageUrls?[0],
                     textisUp: true,
-                    foodName: "Iskender",
-                    cooker: "Ayşe ",
+                    foodName: list?[index].name,
+                    cooker:"Ayşe ",
                   ),
                 );
               }),
@@ -123,6 +136,10 @@ class HomePageView extends StatelessWidget {
                     cooker: "Ayşe",
                     rating: 4.5,
                     participants: 25,
+                    onpressed: (){
+                      //tamamlanan yarışmalara gidecek
+                      Navigator.pushNamed(context, "/finishContestDetail");
+                      }
                   ),
                 );
               }),
@@ -132,7 +149,7 @@ class HomePageView extends StatelessWidget {
   }
 
   Column _buildMostLikedRecipes(
-      TextStyle bodyTitleStyle, BuildContext context, String _url) {
+      TextStyle bodyTitleStyle, BuildContext context, List<FoodModel>? list) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -149,14 +166,17 @@ class HomePageView extends StatelessWidget {
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: list?.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
-                    url: _url,
+                    url: list?[index].imageUrls?[0],
                     width: context.width * 1.5 / 2,
-                    foodName: "İskender",
+                    foodName: list?[index].name,
+                    onpressed: (){
+                      //food detail'e göndericek
+                    },
                   ),
                 );
               }),
