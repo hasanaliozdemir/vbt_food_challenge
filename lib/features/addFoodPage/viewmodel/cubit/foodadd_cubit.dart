@@ -38,22 +38,27 @@ class FoodAddCubit extends Cubit<FoodAddState> {
   
 
   Future getCameraImage() async {
-    final image2 = await ImagePicker().pickImage(source: ImageSource.camera);
-    
-      image = File(image2!.path);
+    final temporaryImage = await ImagePicker().pickImage(source: ImageSource.camera);
+      if(temporaryImage==null)return ;
+      image=File(temporaryImage.path);
+      print(image?.length);
+      emit(FoodAddComplate(image));
     
   }
 
   Future getGalleryImage() async {
-final XFile? image2 = await _picker.pickImage(source: ImageSource.gallery);
+final  temporaryImage = await _picker.pickImage(source: ImageSource.gallery);
+ if(temporaryImage==null)return ;
+      image=File(temporaryImage.path);
+      print(image?.length);
+      emit(FoodAddComplate(image));
     
-      image = File(image2!.path);
-  
   }
 
   void removeImage() {
    
       image = null;
+       emit(FoodAddComplate(image!));
   
   }
 

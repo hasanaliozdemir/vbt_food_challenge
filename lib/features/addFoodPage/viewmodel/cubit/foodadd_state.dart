@@ -5,8 +5,11 @@ abstract class FoodAddState {}
 
 class FoodAddInitial extends FoodAddState {}
 
-class FoodaddLoading extends FoodAddState {}
+class FoodAddComplate extends FoodAddState {
+  final File? image;
 
-class FoodAddComplate extends FoodAddState {}
+  FoodAddComplate(this.image);
+
+}
 
 class FoodAddError extends FoodAddState {}

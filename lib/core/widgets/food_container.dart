@@ -7,9 +7,11 @@ class ImageCardWidget extends StatelessWidget {
   String? foodName;
   String? cooker;
   double? rating;
+  int? stars;
   bool? textisUp;
   int? participants;
   bool? isAdded;
+
   VoidCallback? onpressed;
   ImageCardWidget({
     Key? key,
@@ -19,6 +21,7 @@ class ImageCardWidget extends StatelessWidget {
     this.foodName,
     this.cooker,
     this.rating,
+    this.stars,
     this.participants,
     this.textisUp = false,
     this.isAdded=false,
@@ -32,6 +35,8 @@ class ImageCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   int? stars =rating?.round();
+    print(stars);
     return Container(
       width: width ?? MediaQuery.of(context).size.width * 1.7 / 2,
       child: GestureDetector(
@@ -70,24 +75,39 @@ class ImageCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (rating != null)
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    padding: EdgeInsets.only(
-                      bottom: 5,
-                      top: 5,
-                    ),
-                    width: MediaQuery.of(context).size.width * 1.7 / 20,
-                    decoration: BoxDecoration(
-                        color: ratingColor,
-                        borderRadius: BorderRadius.circular(6)),
-                    child: Center(
-                        child: Text(
-                      rating.toString(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
-                    )),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        padding: EdgeInsets.only(
+                          bottom: 5,
+                          top: 5,
+                        ),
+                        width: MediaQuery.of(context).size.width * 1.7 / 20,
+                        decoration: BoxDecoration(
+                            color: ratingColor,
+                            borderRadius: BorderRadius.circular(6)),
+                        child: Center(
+                            child: Text(
+                          rating.toString(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                      if(stars!=null)
+                     
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                         for(var i=0;i<5;i++)
+                            
+                               i<stars/2? Icon(Icons.star,color: Colors.orange,):
+                               Icon(Icons.star,color: Colors.grey,)
+                      ],)
+                      
+                    ],
                   ),
                 if (participants != null)
                   Row(

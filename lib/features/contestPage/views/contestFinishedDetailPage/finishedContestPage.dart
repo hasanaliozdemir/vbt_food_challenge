@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestDetail_strings.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestFinishDetail_strings.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestpage_strings.dart';
+import 'package:vbt_food_challange/features/contestPage/viewmodel/cubit/finishedcontestpage_cubit.dart';
 import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
@@ -15,156 +17,167 @@ import '../../model/contest_model.dart';
 //kazanan kişi eklenecek
 class FinishedContestPageView extends StatelessWidget {
   final ContestModel? model;
-  const FinishedContestPageView({Key? key,required this.model}) : super(key: key);
+  const FinishedContestPageView({Key? key, required this.model})
+      : super(key: key);
 
   @override
-  
   Widget build(BuildContext context) {
-      bool isDark = Theme.of(context).brightness == Brightness.dark;
-  
-      TextStyle? appbarTitleStyle =  Theme.of(context).textTheme.headline5?.copyWith(
-                
-                  color: isDark ? AppColors().white : AppColors().black,
-                  fontWeight: FontWeight.bold,);
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    TextStyle? bodyTitleStyle =  Theme.of(context).textTheme.headline5?.copyWith(
-                
-                  color: isDark ? AppColors().white : AppColors().black,
-                  fontWeight: FontWeight.bold,);
+    TextStyle? appbarTitleStyle =
+        Theme.of(context).textTheme.headline5?.copyWith(
+              color: isDark ? AppColors().white : AppColors().black,
+              fontWeight: FontWeight.bold,
+            );
+
+    TextStyle? bodyTitleStyle = Theme.of(context).textTheme.headline5?.copyWith(
+          color: isDark ? AppColors().white : AppColors().black,
+          fontWeight: FontWeight.bold,
+        );
+
+    TextStyle kalanTimeTextStyle = const TextStyle(
+        color: Colors.grey, fontSize: 15, fontWeight: FontWeight.bold);
+
+    TextStyle? bodyTextStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
+          color: isDark ? AppColors().white : AppColors().black,
+        );
+
+
+            
+            return Scaffold(
+              appBar: header(
+                  context: context, name: model?.name ?? "", isback: true),
+              body: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: model != null
+                    ? Column(
+                        children: [
+                          _buildImageOfContest(
+                              kalanTimeTextStyle, context, model),
+
+                          _buildMiddleContent(appbarTitleStyle, bodyTitleStyle,
+                              bodyTextStyle, model),
+                          //Tamamlanan Yarışmalar
+                          _participantRecipe(bodyTitleStyle, model),
+
+                          //Son Eklenen Tarifler
+                        ],
+                      )
+                    : Center(child: Text("Not Found")),
+              ),
+              bottomNavigationBar: BottomNavbar(pageid: 2),
+            );
+          
         
-        TextStyle kalanTimeTextStyle = const TextStyle(
-      color: Colors.grey, fontSize: 15, fontWeight: FontWeight.bold);
-
       
+  }
 
-      TextStyle? bodyTextStyle=Theme.of(context).textTheme.bodyText1?.copyWith(
-        color:isDark ? AppColors().white : AppColors().black,);
-
-    return Scaffold(
-      appBar: header(context:context,name:model?.name??"",isback:true),
-      body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: model!=null?Column(
-                children: [
-                      
-
-                  _buildImageOfContest(kalanTimeTextStyle, context,model?.imageUrl?[0]??""),
-                  
-                  _buildMiddleContent(appbarTitleStyle, bodyTitleStyle,bodyTextStyle),
-                  //Tamamlanan Yarışmalar
-                  _participantRecipe(bodyTitleStyle, model?.imageUrl?[0]??""),
-
-                 
-
-                  //Son Eklenen Tarifler
-
-                 
-                ],
-              ):Center(child:Text("Not Found")),
+  Padding _buildMiddleContent(
+      TextStyle? appbarTitleStyle,
+      TextStyle? bodyTitleStyle,
+      TextStyle? bodyTextStyle,
+      ContestModel? model) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Text(
+            ContestFinishedDetailPageStrings.kazanilacakRozet,
+            style: appbarTitleStyle,
+          ),
+          if (model?.badgeUrl != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: Image.network(model?.badgeUrl.toString() ?? "")),
             ),
-      bottomNavigationBar: BottomNavbar(pageid:2),
+          Container(
+              alignment: Alignment.center,
+              child: Text(
+                ContestFinishedDetailPageStrings.descriptionTitle,
+                style: bodyTitleStyle,
+              )),
+          Text(model?.description ?? "",
+              textAlign: TextAlign.center, style: bodyTextStyle)
+        ],
+      ),
     );
   }
 
-  Padding _buildMiddleContent(TextStyle? appbarTitleStyle, TextStyle? bodyTitleStyle,TextStyle? bodyTextStyle) {
-    return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(ContestFinishedDetailPageStrings.kazanilacakRozet,style: appbarTitleStyle,),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom:16.0),
-                        child: Icon(Icons.badge,size: 50,color: Colors.pink,),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(ContestFinishedDetailPageStrings.descriptionTitle,style: bodyTitleStyle,)),
-                      Text(model?.description??"",textAlign: TextAlign.center,style: bodyTextStyle)
-                    ],
-                  ),
-                );
-  }
-
-  Column _participantRecipe(TextStyle? bodyTitleStyle, String _url) {
+  Column _participantRecipe(TextStyle? bodyTitleStyle, ContestModel? model) {
     return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 8.0, top: 8),
-        child: Text(
-          ContestDetailPageStrings.participantTitle,
-          style: bodyTitleStyle,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, top: 8),
+          child: Text(
+            ContestDetailPageStrings.participantTitle,
+            style: bodyTitleStyle,
+          ),
         ),
-      ),
 
-      //Future Builder ile çevrelenip yarışmaya katılanlar
-      Container(
-        
-        width: double.infinity,
-        child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-           physics: NeverScrollableScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ImageCardWidget(
-                      height: context.height*15/100,
-                      width: context.width*1.2/3,
-                      url: _url,
-                     
+        //Future Builder ile çevrelenip yarışmaya katılanlar
+        SizedBox(
+          width: double.infinity,
+          child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ImageCardWidget(
+                        height: context.height * 15 / 100,
+                        width: context.width * 1.2 / 3,
+                        url: "https://www.gunceltarif.com/wp-content/uploads/KEBAB.jpg",
+                      ),
                     ),
-                  ),
-                  Column(children: [
-                    Text("Ayşe hanım"),
-                    
-                  ],)
-                ],
-              );
-            }),
-      ),
-    ],
-  );
+                    Column(
+                      children: [
+                        Text("Ayşe hanım"),
+                      ],
+                    )
+                  ],
+                );
+              }),
+        ),
+      ],
+    );
   }
-
-   
-
-
 
   Padding _buildImageOfContest(
-      TextStyle kalanTimeTextStyle, BuildContext context, String _url) {
+      TextStyle kalanTimeTextStyle, BuildContext context, ContestModel? model) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
-          
-                  
-                     
-                     
-                        ImageCardWidget(
-                         height: context.height/4,
-                        url: _url,
-                        width: context.width,
-                       
-                    ),
-                     
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         Text(ContestFinishedDetailPageStrings.finishTimeText,style: kalanTimeTextStyle,),
-                         Text(ContestFinishedDetailPageStrings.participantNumber+" kişi katıldı",style: kalanTimeTextStyle,)
-
-                       ],
-                     )
-                  
-      
+          ImageCardWidget(
+            height: context.height / 4,
+            url: model?.imageUrl.toString() ?? "",
+            width: context.width,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                ContestFinishedDetailPageStrings.finishTimeText,
+                style: kalanTimeTextStyle,
+              ),
+              Text(
+                ContestFinishedDetailPageStrings.participantNumber +
+                    " kişi katıldı",
+                style: kalanTimeTextStyle,
+              )
+            ],
+          )
         ],
       ),
     );
-}
+  }
 }
