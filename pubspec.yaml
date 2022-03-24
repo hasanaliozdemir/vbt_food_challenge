@@ -31,6 +31,8 @@ dependencies:
   #Firebase 
   cloud_firestore: any
   firebase_core: ^1.13.1
+  firebase_auth: ^3.3.11
+  google_sign_in: ^5.2.4
 
   #language settings
   easy_localization: ^3.0.0
@@ -47,7 +49,7 @@ dependencies:
   #font
   google_fonts: ^2.3.1
 
-  #
+  #perfect package :) 
   kartal: ^2.3.1
 
   #icons

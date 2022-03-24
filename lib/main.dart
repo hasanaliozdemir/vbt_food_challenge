@@ -12,6 +12,7 @@ import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
 
 
 
+
 import 'core/constant/app/app_constants.dart';
 
 import 'features/addFoodPage/view/addFoodPage_view.dart';
@@ -20,16 +21,18 @@ import 'features/contestPage/views/ContestPage/view/contest_view.dart';
 import 'features/contestPage/views/contestFinishedDetailPage/finishedContestPage.dart';
 import 'features/homePage/model/foodModel.dart';
 
-void main() async{
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await EasyLocalization.ensureInitialized();
- 
-  runApp(EasyLocalization(
-    path: AppConstants.LANG_ASSET_PATH,
-    supportedLocales: LanguageManager.instance.supportedLocales,
-  child: MyApp()));
+
+  runApp(
+    EasyLocalization(
+      path: AppConstants.LANG_ASSET_PATH,
+      supportedLocales: LanguageManager.instance.supportedLocales,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +46,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-    
+
       theme: ThemeManager.createTheme(AppThemeLight()),
    
       initialRoute: '/',

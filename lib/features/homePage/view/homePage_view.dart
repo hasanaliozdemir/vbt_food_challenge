@@ -22,6 +22,7 @@ class HomePageView extends StatelessWidget {
      
     
      TextStyle appbarTitleStyle = const TextStyle(
+
         fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black);
     TextStyle bodyTitleStyle = const TextStyle(
         fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black);
@@ -38,6 +39,7 @@ class HomePageView extends StatelessWidget {
           listener: (context, state) {
            
           },
+
           builder: (context, state) {
             return context.read<HomePageViewCubit>().isLoading?Center(child: CircularProgressIndicator(),):
             SingleChildScrollView(
@@ -80,18 +82,18 @@ class HomePageView extends StatelessWidget {
           ),
         ),
         Container(
-         
           width: double.infinity,
           child: ListView.builder(
               shrinkWrap: true,
               //scrollDirection: Axis.vertical,
              physics: NeverScrollableScrollPhysics(),
               itemCount: list?.length,
+
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
-                    height: context.height*25/100,
+                    height: context.height * 25 / 100,
                     width: double.infinity,
                     url: list?[index].imageUrls?[0],
                     textisUp: true,
