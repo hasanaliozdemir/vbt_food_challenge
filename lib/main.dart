@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:vbt_food_challange/core/constant/language_manager.dart';
-import 'package:vbt_food_challange/core/constant/strings/homepage_strings.dart';
 import 'package:vbt_food_challange/core/theme/app_theme.dart';
 import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
@@ -18,11 +16,8 @@ import 'features/addFoodPage/view/addFoodPage_view.dart';
 import 'features/contestPage/views/ContestDetailPage/view/contestdetail_view_page.dart';
 import 'features/contestPage/views/ContestPage/view/contestHomePage_view.dart';
 import 'features/contestPage/views/contestFinishedDetailPage/finishedContestPage.dart';
-import 'features/foodDetailPage/view/detail_view.dart';
-import 'features/homePage/model/foodModel.dart';
-import 'features/loginPage/view/login_view.dart';
+
 import 'features/profilPage/service/profile_service.dart';
-import 'product/staticListData/foodmodelData.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +28,7 @@ void main() async {
     EasyLocalization(
       path: AppConstants.LANG_ASSET_PATH,
       supportedLocales: LanguageManager.instance.supportedLocales,
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -53,10 +48,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeManager.createTheme(AppThemeLight()),
         initialRoute: '/',
         routes: {
-
-          "/": (context) => HomePageView(),
-        
-
+          "/": (context) => const HomePageView(),
         },
         onGenerateRoute: (settings) {
           //Navigator.pushNamedAndRemoveUntil(context, "/loginPage/", (route) => false);
@@ -65,15 +57,14 @@ class MyApp extends StatelessWidget {
           List<String> filtered = settings.name!.split("/");
           switch (filtered[1]) {
             //switch içinden filtered[1] değrimi eşleştiriyorum.Çünkü aynı sayfayı bir çok farklı data için kullanıyorum.
-            
-            
-              case "/homePome":
+
+            case "/homePome":
               return PageTransition(
                 //ben filteredPage içinde bir fonksiyona eleman taşıyorum Sen sadece filtered[2] kullanarak yapabilirsin.
-                child: HomePageView(),
+                child: const HomePageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
             case "searchPage":
               return PageTransition(
@@ -81,21 +72,21 @@ class MyApp extends StatelessWidget {
                 child: SearchPageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
             case "contestPage":
               return PageTransition(
-                child: ContestPageView(),
+                child: const ContestPageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
             case "contestDetail":
               return PageTransition(
-                child: ContestDetailPageView(),
+                child: const ContestDetailPageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
 
             case "finishContestDetail":
@@ -105,32 +96,33 @@ class MyApp extends StatelessWidget {
                 ),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
 
             case "registerPage":
               return PageTransition(
-                child: RegisterView(),
+                child: const RegisterView(),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
 
             case "profilePage":
               return PageTransition(
-                child: ProfilPageView(),
+                child: const ProfilPageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
-              case "addFoodPage":
+            case "addFoodPage":
               return PageTransition(
-                child: AddFoodPageView(),
+                child: const AddFoodPageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
-                reverseDuration: Duration(seconds: 0),
+                reverseDuration: const Duration(seconds: 0),
               );
           }
+          return null;
         });
   }
 }

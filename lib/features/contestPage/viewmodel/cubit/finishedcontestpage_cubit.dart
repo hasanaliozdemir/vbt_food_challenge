@@ -8,20 +8,17 @@ import '../../service/finishedContestPage_service.dart';
 part 'finishedcontestpage_state.dart';
 
 class FinishedcontestpageCubit extends Cubit<FinishedcontestpageState> {
-  FinishedcontestpageCubit() : super(FinishedcontestpageInitial()){
+  FinishedcontestpageCubit() : super(FinishedcontestpageInitial()) {
     _init();
   }
   ContestModel? cubitModel;
   DocumentSnapshot? user;
-_init(){
+  _init() {
+    user = getWinner();
+  }
 
-user= getWinner();
-print(user?.data().toString());
-
-}
-
-getWinner()async{
-await FinishContestPageService().getWinner(cubitModel?.winner.toString()??"");
-}
-
+  getWinner() async {
+    await FinishContestPageService()
+        .getWinner(cubitModel?.winner.toString() ?? "");
+  }
 }

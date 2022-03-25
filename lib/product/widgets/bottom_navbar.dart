@@ -3,8 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/features/homePage/view/homePage_view.dart';
-import 'package:vbt_food_challange/features/profilPage/view/profil_view.dart';
-import 'package:vbt_food_challange/features/searchPage/view/search_view.dart';
 
 class BottomNavbar extends StatefulWidget {
   final int pageid;
@@ -61,10 +59,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }) {
     return InkWell(
       onTap: () {
-
-      id!=0? Navigator.pushNamedAndRemoveUntil(context, "/$pageName", (route) => false):
-       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePageView(),));
-       
+        id != 0
+            ? Navigator.pushNamedAndRemoveUntil(
+                context, "/$pageName", (route) => false)
+            : Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePageView(),
+                ));
       },
       child: Column(
         children: [
@@ -75,7 +77,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           ),
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12,
             ),
           ),

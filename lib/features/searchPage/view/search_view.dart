@@ -28,7 +28,7 @@ class SearchPageView extends StatefulWidget {
 
 class _SearchPageViewState extends State<SearchPageView> {
   StreamController<int> controller = StreamController<int>.broadcast();
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   List<CategoryCardModel> categories = [
     CategoryCardModel("Çorba", false),
@@ -39,8 +39,9 @@ class _SearchPageViewState extends State<SearchPageView> {
     CategoryCardModel("Salata", false),
   ];
 
-  List<CategoryCardModel> _selectedCategories = [];
+  final List<CategoryCardModel> _selectedCategories = [];
 
+  // ignore: prefer_final_fields, unused_field
   List<FoodModel> _searchResults = [];
 
   List<FoodModel> _allFoods = [];
@@ -87,14 +88,14 @@ class _SearchPageViewState extends State<SearchPageView> {
   Scaffold _buildScaffold(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const BottomNavbar(pageid: 1),
-       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: MyFAB(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: const MyFAB(),
       body: (_isLoadingPage)
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
-            child: Column(
+              child: Column(
                 children: [
                   SizedBox(
                     height: context.height * 0.1,
@@ -120,7 +121,7 @@ class _SearchPageViewState extends State<SearchPageView> {
                   _buildSearchItems()
                 ],
               ),
-          ),
+            ),
     );
   }
 
@@ -139,7 +140,7 @@ class _SearchPageViewState extends State<SearchPageView> {
     return // Rectangle 290
         Row(
       children: [
-        Text("Çarkı Çevir"),
+        const Text("Çarkı Çevir"),
         Container(
           width: context.dynamicWidth(0.2),
           height: 38,
@@ -157,15 +158,20 @@ class _SearchPageViewState extends State<SearchPageView> {
                           (_allFoods.length < 10) ? _allFoods.length : 10,
                           (index) {
                         return FortuneItem(
-                          child: FittedBox(
-                            child: Text("    "+_allFoods[index].name!,style: TextStyle(
-                              color: (index%2 == 0) ? AppColors().black : AppColors().darkGrey
-                            ),),
-                          ),
-                          style: FortuneItemStyle(
-                            color: (index%2 == 0) ? AppColors().demonicyellow.withOpacity(0.4) : AppColors().red.withOpacity(0.4),
-                          )
-                        );
+                            child: FittedBox(
+                              child: Text(
+                                "    " + _allFoods[index].name!,
+                                style: TextStyle(
+                                    color: (index % 2 == 0)
+                                        ? AppColors().black
+                                        : AppColors().darkGrey),
+                              ),
+                            ),
+                            style: FortuneItemStyle(
+                              color: (index % 2 == 0)
+                                  ? AppColors().demonicyellow.withOpacity(0.4)
+                                  : AppColors().red.withOpacity(0.4),
+                            ));
                       });
                       var _selectedIndex = 0;
                       bool _isTurned = false;
@@ -205,11 +211,15 @@ class _SearchPageViewState extends State<SearchPageView> {
                                 Expanded(
                                   flex: 1,
                                   child: Padding(
-                                    padding:  EdgeInsets.symmetric(horizontal:context.paddingLow.bottom ),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: context.paddingLow.bottom),
                                     child: Center(
-                                      child: Text("Şanslı Tarifin Yükleniyor",style: TextStyle(
-                                        fontSize: context.dynamicWidth(0.05)
-                                      ),),
+                                      child: Text(
+                                        "Şanslı Tarifin Yükleniyor",
+                                        style: TextStyle(
+                                            fontSize:
+                                                context.dynamicWidth(0.05)),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -218,16 +228,23 @@ class _SearchPageViewState extends State<SearchPageView> {
                                   child: Center(
                                     child: (_isTurned)
                                         ? FittedBox(
-                                          child: Row(
-                                            children: [
-                                              CircleAvatar(backgroundImage: NetworkImage(_allFoods[_selectedIndex].imageUrls!.first), ),
-                                              SizedBox(
-                                                width: context.paddingLow.right,
-                                              ),
-                                              Text( _allFoods[_selectedIndex].name!),
-                                            ],
-                                          ),
-                                        )
+                                            child: Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundImage: NetworkImage(
+                                                      _allFoods[_selectedIndex]
+                                                          .imageUrls!
+                                                          .first),
+                                                ),
+                                                SizedBox(
+                                                  width:
+                                                      context.paddingLow.right,
+                                                ),
+                                                Text(_allFoods[_selectedIndex]
+                                                    .name!),
+                                              ],
+                                            ),
+                                          )
                                         : Container(),
                                   ),
                                 ),
@@ -251,9 +268,16 @@ class _SearchPageViewState extends State<SearchPageView> {
                                         onPressed: () {
                                           if (_isTurned) {
                                             Navigator.pop(context);
-                                            print(
-                                                _allFoods[_selectedIndex].name);
-                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> FoodDetailPageView(foodModel: _allFoods[_selectedIndex] ,),));
+
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      FoodDetailPageView(
+                                                    foodModel: _allFoods[
+                                                        _selectedIndex],
+                                                  ),
+                                                ));
                                           }
                                         },
                                         style: ButtonStyle(
@@ -389,18 +413,23 @@ class _SearchPageViewState extends State<SearchPageView> {
                       padding: context.paddingLow,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppColors().redremains,
-                          borderRadius: context.normalBorderRadius
-                        ),
+                            color: AppColors().redremains,
+                            borderRadius: context.normalBorderRadius),
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundImage: NetworkImage(_item.imageUrls?.first),
+                            backgroundImage:
+                                NetworkImage(_item.imageUrls?.first),
                           ),
                           title: Text(_item.name ?? "Yükleniyor..."),
                           trailing: IconButton(
-                            icon: Icon(Icons.chevron_right, color: AppColors().red),
-                            onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> FoodDetailPageView(foodModel: _item)));
+                            icon: Icon(Icons.chevron_right,
+                                color: AppColors().red),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FoodDetailPageView(
+                                          foodModel: _item)));
                             },
                           ),
                         ),
@@ -453,21 +482,21 @@ class _SearchPageViewState extends State<SearchPageView> {
       }
     } else {
       categories[index].selected = !categories[index].selected;
-    setState(() {
-      _isLoading = true;
-    });
-    (categories[index].selected)
-        ? _selectedCategories.add(categories[index])
-        : _selectedCategories.remove(categories[index]);
-    if (_selectedCategories.isEmpty) {
-      _matchingList = _allFoods.toList();
-      _orderMatchesByCategories(_searchController.text);
-    } else {
-      _orderMatchesByCategories(_searchController.text);
-    }
-    setState(() {
-      _isLoading = false;
-    });
+      setState(() {
+        _isLoading = true;
+      });
+      (categories[index].selected)
+          ? _selectedCategories.add(categories[index])
+          : _selectedCategories.remove(categories[index]);
+      if (_selectedCategories.isEmpty) {
+        _matchingList = _allFoods.toList();
+        _orderMatchesByCategories(_searchController.text);
+      } else {
+        _orderMatchesByCategories(_searchController.text);
+      }
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 

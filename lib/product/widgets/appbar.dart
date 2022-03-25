@@ -5,7 +5,7 @@ PreferredSizeWidget header({
   required String name,
   required bool isback,
 }) {
-  TextStyle appTitleTextStyle = TextStyle(
+  TextStyle appTitleTextStyle = const TextStyle(
     fontSize: 25,
     fontWeight: FontWeight.bold,
     color: Colors.black,
