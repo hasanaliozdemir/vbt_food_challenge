@@ -37,10 +37,13 @@ class LoginView extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
+                      height: context.height/12,
+                    ),
+                    Container(
                       height: context.height * 0.3,
-                      child: FlutterLogo(
-                        size: context.height * 0.2,
-                      ),
+                      margin: context.paddingMedium,
+                      padding: context.paddingMedium,
+                      child: Image.asset("assets/images/logo.png"),
                     ),
                     Form(
                       key: context.read<LoginCubit>().formKey,

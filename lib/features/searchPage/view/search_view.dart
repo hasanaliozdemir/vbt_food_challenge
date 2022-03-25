@@ -17,6 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 
+import '../../../product/widgets/fab.dart';
+
 class SearchPageView extends StatefulWidget {
   SearchPageView({Key? key}) : super(key: key);
 
@@ -85,36 +87,40 @@ class _SearchPageViewState extends State<SearchPageView> {
   Scaffold _buildScaffold(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const BottomNavbar(pageid: 1),
+       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: MyFAB(),
       body: (_isLoadingPage)
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              children: [
-                SizedBox(
-                  height: context.height * 0.1,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      _buildTitle(),
-                      const Spacer(),
-                      _buildShuffle(context)
-                    ],
+          : SingleChildScrollView(
+            child: Column(
+                children: [
+                  SizedBox(
+                    height: context.height * 0.1,
                   ),
-                ),
-                SizedBox(
-                  height: context.height * 0.03,
-                ),
-                _buildSearchBar(context),
-                SizedBox(
-                  height: context.height * 0.03,
-                ),
-                _buildCategories(context),
-                _buildSearchItems()
-              ],
-            ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        _buildTitle(),
+                        const Spacer(),
+                        _buildShuffle(context)
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: context.height * 0.03,
+                  ),
+                  _buildSearchBar(context),
+                  SizedBox(
+                    height: context.height * 0.03,
+                  ),
+                  _buildCategories(context),
+                  _buildSearchItems()
+                ],
+              ),
+          ),
     );
   }
 

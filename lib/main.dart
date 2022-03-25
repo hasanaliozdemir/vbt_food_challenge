@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
 
-          "/": (context) => ContestPageView(),
+          "/": (context) => HomePageView(),
         
 
         },
@@ -119,6 +119,13 @@ class MyApp extends StatelessWidget {
             case "profilePage":
               return PageTransition(
                 child: ProfilPageView(),
+                type: PageTransitionType.fade,
+                settings: settings,
+                reverseDuration: Duration(seconds: 0),
+              );
+              case "addFoodPage":
+              return PageTransition(
+                child: AddFoodPageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
                 reverseDuration: Duration(seconds: 0),

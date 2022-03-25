@@ -9,6 +9,7 @@ import 'package:vbt_food_challange/features/profilPage/view/profile_your_receips
 import 'package:vbt_food_challange/features/profilPage/view/saved_receips_view.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
+import '../../../product/widgets/fab.dart';
 import '../../homePage/model/foodModel.dart';
 
 class ProfilPageView extends StatefulWidget {
@@ -54,7 +55,10 @@ class _ProfilPageViewState extends State<ProfilPageView> {
               child: CircularProgressIndicator(),
             )
           : _buildBody(context),
+      
       bottomNavigationBar: const BottomNavbar(pageid: 3),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: MyFAB(),
     );
   }
 
@@ -224,7 +228,7 @@ class _ProfilPageViewState extends State<ProfilPageView> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: context.normalBorderRadius,
-          color: AppColors().redremains),
+          color: AppColors().red),
       child: SizedBox(
         width: double.infinity,
         child: Wrap(

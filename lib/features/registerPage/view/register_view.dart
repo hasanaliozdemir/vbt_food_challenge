@@ -33,10 +33,13 @@ class _RegisterViewState extends State<RegisterView> {
             return SingleChildScrollView(
               child: Container(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: context.height * 0.3,
-                      child: FlutterLogo(size: context.height * 0.2),
+                      margin: context.paddingMedium,
+                      padding: context.paddingMedium,
+                      child: Image.asset("assets/images/logo.png"),
                     ),
                     Form(
                       key: context.read<RegisterCubit>().formKey,

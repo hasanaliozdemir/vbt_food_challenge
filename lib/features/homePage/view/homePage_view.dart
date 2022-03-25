@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/homepage_strings.dart';
+import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/core/widgets/food_container.dart';
 import 'package:vbt_food_challange/features/addFoodPage/viewmodel/cubit/foodadd_cubit.dart';
 import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
@@ -15,6 +16,7 @@ import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../product/widgets/appbar.dart';
+import '../../../product/widgets/fab.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({Key? key}) : super(key: key);
@@ -38,6 +40,8 @@ class HomePageView extends StatelessWidget {
       child: Scaffold(
         appBar: header(context:context,name:"Ana Sayfa",isback:false),
          bottomNavigationBar: BottomNavbar(pageid:0),
+         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+         floatingActionButton: MyFAB(),
         body: BlocConsumer<HomePageViewCubit, HomePageViewState>(
           listener: (context, state) {
            
@@ -190,3 +194,4 @@ class HomePageView extends StatelessWidget {
     );
   }
 }
+

@@ -10,6 +10,7 @@ import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 import '../../../../../core/widgets/category_container.dart';
 import '../../../../../core/widgets/food_container.dart';
 import '../../../../../product/widgets/appbar.dart';
+import '../../../../../product/widgets/fab.dart';
 import '../../contestFinishedDetailPage/finishedContestPage.dart';
 
 class ContestPageView extends StatelessWidget {
@@ -31,6 +32,9 @@ class ContestPageView extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: header(context: context, name: "YARIŞMALAR", isback: false),
+             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: MyFAB(),
+        bottomNavigationBar: BottomNavbar(pageid: 2),
             body: context.read<ContesthomepageCubit>().isLoading?SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
@@ -62,7 +66,7 @@ class ContestPageView extends StatelessWidget {
                 ],
               ),
             ):Center(child: CircularProgressIndicator(),),
-            bottomNavigationBar: BottomNavbar(pageid: 2),
+          
           );
         },
       ),
