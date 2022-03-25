@@ -67,7 +67,7 @@ class FoodDetailPageView extends StatelessWidget {
                       const SizedBox(
                         width: 90,
                       ),
-                       Text("${foodModel?.commentList?.length.toString()} yorum"??"0 yorum",style: Theme.of(context).textTheme.bodyText1,),
+                       Text("${foodModel?.commentList?.length.toString()} yorum",style: Theme.of(context).textTheme.bodyText1,),
                     ],
                   ),
                 ),

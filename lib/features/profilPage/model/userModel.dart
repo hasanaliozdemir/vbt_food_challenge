@@ -14,12 +14,12 @@ class UserModel {
     required this.favoriteFoods,
   });
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json){
     name = json["name"];
     email = json["email"];
     addedFoods = json["addedFoods"];
     competitionsWon = json["competitionsWon"];
-    favoriteFoods = json["favoriteFoods"];
+    favoriteFoods = json["favoriteFoods"] ;
    
   }
 }
