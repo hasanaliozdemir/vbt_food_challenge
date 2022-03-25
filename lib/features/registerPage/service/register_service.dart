@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vbt_food_challange/features/registerPage/model/register_model.dart';
 
 class RegisterService {
   final _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
-
-  Future signUp({required String? name,required String? email,required String? password}) async {
+  Future signUp(
+      {required String? name,
+      required String? email,
+      required String? password}) async {
     try {
       UserCredential? userCredential;
-     userCredential= await _firebaseAuth.createUserWithEmailAndPassword(
+      userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email!, password: password!);
-      print("Hesap Oluşturuldu " +
-          FirebaseAuth.instance.currentUser!.email.toString());
-           await _firestore
+
+      await _firestore
           .collection("users")
           .doc(userCredential.user?.uid ?? '')
           .set({
@@ -23,7 +22,8 @@ class RegisterService {
         'email': email,
         'addedFoods': [],
         'favoriteFoods': [],
-        'competitionsWon': [],});
+        'competitionsWon': [],
+      });
       return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
@@ -32,10 +32,10 @@ class RegisterService {
         throw Exception('Weak password');
       }
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
+
   Future<void> createUser(
     String name,
     String email,
@@ -67,7 +67,6 @@ class RegisterService {
         throw Exception('Weak password');
       }
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

@@ -19,7 +19,7 @@ class FoodAddService {
 
       _firestore.collection('foods').doc(id).set(foodModel.toMap());
     } catch (e) {
-      print(e);
+      rethrow;
     }
 
     return;

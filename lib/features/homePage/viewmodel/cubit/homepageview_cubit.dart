@@ -19,9 +19,6 @@ class HomePageViewCubit extends Cubit<HomePageViewState> {
 
   bool isLoading = false;
 
-  final String _url =
-      "https://galeri13.uludagsozluk.com/624/sarma-beyti_1776232.jpg";
-
   Future<void> _init() async {
     changeLoading();
     lastFoodList = await FoodListService().getListFood();
@@ -35,13 +32,11 @@ class HomePageViewCubit extends Cubit<HomePageViewState> {
 
   void changeLoading() {
     isLoading = !isLoading;
-    print(isLoading);
   }
 
   Future<String> getUser(String ref) async {
     DocumentSnapshot<Map<String, dynamic>> user =
         await FirebaseFirestore.instance.doc(ref).get();
-    print(user.data());
     String username = user.data()?['name'];
     return username;
   }

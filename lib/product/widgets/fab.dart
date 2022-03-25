@@ -13,12 +13,12 @@ class MyFAB extends StatelessWidget {
       onPressed: () {
         Navigator.pushNamed(context, "/addFoodPage");
       },
-      child: Center(
-          child: const Padding(
+      child: const Center(
+          child: Padding(
         padding: EdgeInsets.all(1.0),
         child: Text(
           "Tarif Ekle",
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       )),

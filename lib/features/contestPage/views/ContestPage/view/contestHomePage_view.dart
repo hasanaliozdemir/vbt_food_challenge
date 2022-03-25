@@ -4,7 +4,6 @@ import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestpage_strings.dart';
 import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
 import 'package:vbt_food_challange/features/contestPage/views/ContestPage/viewmodel/cubit/contesthomepage_cubit.dart';
-import 'package:vbt_food_challange/features/homePage/viewmodel/cubit/homepageview_cubit.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
 import '../../../../../core/widgets/category_container.dart';
@@ -18,55 +17,64 @@ class ContestPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle appbarTitleStyle = const TextStyle(
-        fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black);
     TextStyle bodyTitleStyle = const TextStyle(
         fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black);
 
     return BlocProvider(
       create: (context) => ContesthomepageCubit(),
       child: BlocConsumer<ContesthomepageCubit, ContesthomepageState>(
-        listener: (context, state) {
-        
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
             appBar: header(context: context, name: "YARIŞMALAR", isback: false),
-             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: MyFAB(),
-        bottomNavigationBar: BottomNavbar(pageid: 2),
-            body: context.read<ContesthomepageCubit>().isLoading?SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  //En Beğeniler Tarifler
-                  Container(
-                    height: context.height * 5 / 100,
-                    width: double.infinity,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return CategoryTextContainerWidget(
-                            text: context.read<ContesthomepageCubit>().category[index],
-                            onpressed: () {
-                              print(index);
-                            },
-                          );
-                        }),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: const MyFAB(),
+            bottomNavigationBar: const BottomNavbar(pageid: 2),
+            body: context.read<ContesthomepageCubit>().isLoading
+                ? SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        //En Beğeniler Tarifler
+                        SizedBox(
+                          height: context.height * 5 / 100,
+                          width: double.infinity,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 5,
+                              itemBuilder: (context, index) {
+                                return CategoryTextContainerWidget(
+                                  text: context
+                                      .read<ContesthomepageCubit>()
+                                      .category[index],
+                                  onpressed: () {},
+                                );
+                              }),
+                        ),
+
+                        _buildAwardContest(
+                            bodyTitleStyle,
+                            context,
+                            context
+                                .read<ContesthomepageCubit>()
+                                .awardContentList),
+
+                        //Tamamlanan Yarışmalar
+                        _buildMostPopular(
+                            bodyTitleStyle,
+                            context
+                                .read<ContesthomepageCubit>()
+                                .mostPopularContent),
+
+                        //Son Eklenen Tarifler
+                      ],
+                    ),
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
                   ),
-
-                  _buildAwardContest(bodyTitleStyle, context, context.read<ContesthomepageCubit>().awardContentList),
-
-                  //Tamamlanan Yarışmalar
-                  _buildMostPopular(bodyTitleStyle, context.read<ContesthomepageCubit>().mostPopularContent),
-
-                  //Son Eklenen Tarifler
-                ],
-              ),
-            ):Center(child: CircularProgressIndicator(),),
-          
           );
         },
       ),
@@ -84,13 +92,12 @@ class ContestPageView extends StatelessWidget {
             style: bodyTitleStyle,
           ),
         ),
-        Container(
-          
+        SizedBox(
           width: double.infinity,
           child: ListView.builder(
               shrinkWrap: true,
               //scrollDirection: Axis.vertical,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: list?.length,
               itemBuilder: (context, index) {
                 return Column(
@@ -100,12 +107,17 @@ class ContestPageView extends StatelessWidget {
                       child: ImageCardWidget(
                         height: context.height * 25 / 100,
                         width: double.infinity,
-                        url: list?[index].imageUrl??"",
+                        url: list?[index].imageUrl ?? "",
                         //foodName: list?[index].name,
-                        
-                        isAdded: true,
-                        onpressed: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],pageId: 1,))),
 
+                        isAdded: true,
+                        onpressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => FinishedContestPageView(
+                                      model: list?[index],
+                                      pageId: 1,
+                                    ))),
                       ),
                     ),
                     Padding(
@@ -113,10 +125,13 @@ class ContestPageView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                        Text(list?[index].name.toString()??""),
-                        Text("${list?[index].participant?.length.toString()} kişi katılıyor",style: Theme.of(context).textTheme.bodySmall,)
-
-                      ],),
+                          Text(list?[index].name.toString() ?? ""),
+                          Text(
+                            "${list?[index].participant?.length.toString()} kişi katılıyor",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 );
@@ -126,8 +141,8 @@ class ContestPageView extends StatelessWidget {
     );
   }
 
-  Column _buildAwardContest(
-      TextStyle bodyTitleStyle, BuildContext context, List<ContestModel>? list) {
+  Column _buildAwardContest(TextStyle bodyTitleStyle, BuildContext context,
+      List<ContestModel>? list) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -138,7 +153,7 @@ class ContestPageView extends StatelessWidget {
             style: bodyTitleStyle,
           ),
         ),
-        Container(
+        SizedBox(
           height: context.height * 28 / 100,
           width: double.infinity,
           child: ListView.builder(
@@ -149,14 +164,20 @@ class ContestPageView extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ImageCardWidget(
-                    url: list?[index].imageUrl??"",
+                    url: list?[index].imageUrl ?? "",
                     width: context.width * 1.5 / 2,
-                    foodName:list?[index].name??"",
+                    foodName: list?[index].name ?? "",
                     //participants: 20,
 
                     //yarışma ayrıntısına gidilecek
                     onpressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],pageId: 1,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => FinishedContestPageView(
+                                    model: list?[index],
+                                    pageId: 1,
+                                  )));
                     },
                   ),
                 );

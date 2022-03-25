@@ -55,10 +55,9 @@ class _ProfilPageViewState extends State<ProfilPageView> {
               child: CircularProgressIndicator(),
             )
           : _buildBody(context),
-      
       bottomNavigationBar: const BottomNavbar(pageid: 3),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: MyFAB(),
+      floatingActionButton: const MyFAB(),
     );
   }
 
@@ -108,15 +107,18 @@ class _ProfilPageViewState extends State<ProfilPageView> {
             SizedBox(
               height: context.dynamicHeight(0.03),
               child: GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> YourReceipsView(foods: myList)));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              YourReceipsView(foods: myList)));
                 },
                 child: Icon(
-                    Icons.chevron_right,
-                    color: AppColors().red,
-                  ),
+                  Icons.chevron_right,
+                  color: AppColors().red,
+                ),
               ),
-              
             ),
           ],
         ),
@@ -145,8 +147,12 @@ class _ProfilPageViewState extends State<ProfilPageView> {
             SizedBox(
               height: context.dynamicHeight(0.03),
               child: GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SavedReceipsView(foods: favList)));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              SavedReceipsView(foods: favList)));
                 },
                 child: Icon(
                   Icons.chevron_right,
@@ -224,8 +230,7 @@ class _ProfilPageViewState extends State<ProfilPageView> {
   Container _buildAchivementCard(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: context.normalBorderRadius,
-          color: AppColors().red),
+          borderRadius: context.normalBorderRadius, color: AppColors().red),
       child: SizedBox(
         width: double.infinity,
         child: Wrap(
@@ -284,9 +289,9 @@ class _ProfilPageViewState extends State<ProfilPageView> {
             child: Column(
           children: [
             Expanded(child: FittedBox(child: Text(_currentUser.name ?? ""))),
-            Spacer(),
-            Expanded(child: FittedBox(child: Text("Level 2"))),
-            Expanded(child: FittedBox(child: Text("Patlıcan Adam"))),
+            const Spacer(),
+            const Expanded(child: FittedBox(child: const Text("Level 2"))),
+            const Expanded(child: FittedBox(child: Text("Patlıcan Adam"))),
           ],
         ))
       ],

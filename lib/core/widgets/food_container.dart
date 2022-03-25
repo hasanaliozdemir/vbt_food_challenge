@@ -24,7 +24,7 @@ class ImageCardWidget extends StatelessWidget {
     this.stars,
     this.participants,
     this.textisUp = false,
-    this.isAdded=false,
+    this.isAdded = false,
     this.onpressed,
   }) : super(key: key);
   Color ratingColor = const Color.fromARGB(255, 255, 91, 91);
@@ -35,8 +35,7 @@ class ImageCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   int? stars =rating?.round();
-    print(stars);
+    int? stars = rating?.round();
     return Container(
       width: width ?? MediaQuery.of(context).size.width * 1.7 / 2,
       child: GestureDetector(
@@ -58,7 +57,7 @@ class ImageCardWidget extends StatelessWidget {
                       image: NetworkImage(url), fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(25)),
             ),
-            if (foodName != null&&textisUp==false)
+            if (foodName != null && textisUp == false)
               Text(
                 foodName.toString(),
                 style: foodNameTextStyle,
@@ -96,24 +95,32 @@ class ImageCardWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         )),
                       ),
-                      if(stars!=null)
-                     
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                         for(var i=0;i<5;i++)
-                            
-                               i<stars/2? Icon(Icons.star,color: Colors.orange,):
-                               Icon(Icons.star,color: Colors.grey,)
-                      ],)
-                      
+                      if (stars != null)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (var i = 0; i < 5; i++)
+                              i < stars / 2
+                                  ? Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                    )
+                                  : Icon(
+                                      Icons.star,
+                                      color: Colors.grey,
+                                    )
+                          ],
+                        )
                     ],
                   ),
                 if (participants != null)
                   Row(
                     children: [
                       Icon(Icons.food_bank),
-                      if (isAdded!=true) Text(participants.toString() + " tarif") else Text(participants.toString() + " kişi katılıyor"),
+                      if (isAdded != true)
+                        Text(participants.toString() + " tarif")
+                      else
+                        Text(participants.toString() + " kişi katılıyor"),
                     ],
                   )
               ],

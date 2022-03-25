@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:kartal/kartal.dart';
@@ -20,7 +19,7 @@ import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 import '../../../product/widgets/fab.dart';
 
 class SearchPageView extends StatefulWidget {
-  SearchPageView({Key? key}) : super(key: key);
+  const SearchPageView({Key? key}) : super(key: key);
 
   @override
   State<SearchPageView> createState() => _SearchPageViewState();

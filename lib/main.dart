@@ -51,16 +51,10 @@ class MyApp extends StatelessWidget {
           "/": (context) => const HomePageView(),
         },
         onGenerateRoute: (settings) {
-          //Navigator.pushNamedAndRemoveUntil(context, "/loginPage/", (route) => false);
-          // Bu şekilde onGenerateRoute kısmına yolluyorum. Ardından split fonksiyonu ile ayırıyorum.
-          //filtered[1] =filteredPAGE filtered[2] = _id değerim oluyor.
           List<String> filtered = settings.name!.split("/");
           switch (filtered[1]) {
-            //switch içinden filtered[1] değrimi eşleştiriyorum.Çünkü aynı sayfayı bir çok farklı data için kullanıyorum.
-
             case "/homePome":
               return PageTransition(
-                //ben filteredPage içinde bir fonksiyona eleman taşıyorum Sen sadece filtered[2] kullanarak yapabilirsin.
                 child: const HomePageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
@@ -68,8 +62,7 @@ class MyApp extends StatelessWidget {
               );
             case "searchPage":
               return PageTransition(
-                //ben filteredPage içinde bir fonksiyona eleman taşıyorum Sen sadece filtered[2] kullanarak yapabilirsin.
-                child: SearchPageView(),
+                child: const SearchPageView(),
                 type: PageTransitionType.fade,
                 settings: settings,
                 reverseDuration: const Duration(seconds: 0),
@@ -91,7 +84,8 @@ class MyApp extends StatelessWidget {
 
             case "finishContestDetail":
               return PageTransition(
-                child: FinishedContestPageView(pageId: int.parse(filtered[3]),
+                child: FinishedContestPageView(
+                  pageId: int.parse(filtered[3]),
                   model: ContestModel(),
                 ),
                 type: PageTransitionType.fade,

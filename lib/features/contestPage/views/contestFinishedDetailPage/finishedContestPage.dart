@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
@@ -18,11 +16,8 @@ import '../../model/contest_model.dart';
 class FinishedContestPageView extends StatelessWidget {
   final ContestModel? model;
   final int? pageId;
-  const FinishedContestPageView({Key? key,
-  
-   required this.model,
-   required this.pageId
-   })
+  const FinishedContestPageView(
+      {Key? key, required this.model, required this.pageId})
       : super(key: key);
 
   @override
@@ -50,12 +45,11 @@ class FinishedContestPageView extends StatelessWidget {
     return BlocProvider(
       create: (context) => ContesthomepageCubit(),
       child: BlocConsumer<ContesthomepageCubit, ContesthomepageState>(
-        listener: (context, state) {
-         
-        },
+        listener: (context, state) {},
         builder: (context, state) {
-          context.read<ContesthomepageCubit>().otherFoodList = model?.contestFoods;
-        
+          context.read<ContesthomepageCubit>().otherFoodList =
+              model?.contestFoods;
+
           return Scaffold(
             appBar:
                 header(context: context, name: model?.name ?? "", isback: true),
@@ -67,17 +61,17 @@ class FinishedContestPageView extends StatelessWidget {
                         _buildImageOfContest(
                             kalanTimeTextStyle, context, model),
 
-                        _buildMiddleContent(context,appbarTitleStyle, bodyTitleStyle,
-                            bodyTextStyle,pageId,model),
+                        _buildMiddleContent(context, appbarTitleStyle,
+                            bodyTitleStyle, bodyTextStyle, pageId, model),
                         //Tamamlanan Yarışmalar
                         _participantRecipe(appbarTitleStyle, model),
 
                         //Son Eklenen Tarifler
                       ],
                     )
-                  : Center(child: Text("Not Found")),
+                  : const Center(child: Text("Not Found")),
             ),
-            bottomNavigationBar: BottomNavbar(pageid: 2),
+            bottomNavigationBar: const BottomNavbar(pageid: 2),
           );
         },
       ),
@@ -89,18 +83,16 @@ class FinishedContestPageView extends StatelessWidget {
       TextStyle? appbarTitleStyle,
       TextStyle? bodyTitleStyle,
       TextStyle? bodyTextStyle,
-      int?  pageId,
+      int? pageId,
       ContestModel? model) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           Container(
-            
             decoration: BoxDecoration(
-              color: AppColors().green.withOpacity(1),
-              borderRadius: BorderRadius.circular(10)
-            ),
+                color: AppColors().green.withOpacity(1),
+                borderRadius: BorderRadius.circular(10)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -110,30 +102,29 @@ class FinishedContestPageView extends StatelessWidget {
                   style: appbarTitleStyle,
                 ),
                 Padding(
-                padding: const EdgeInsets.only(top:16,bottom: 16),
-                child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: Image.network(model?.badgeUrl.toString() ?? "")),
-              ),
+                  padding: const EdgeInsets.only(top: 16, bottom: 16),
+                  child: SizedBox(
+                      height: 70,
+                      width: 70,
+                      child: Image.network(model?.badgeUrl.toString() ?? "")),
+                ),
               ],
             ),
           ),
-          
-          
-          
-         
-                if(pageId==1)Padding(
-           padding: EdgeInsets.only(left: 16,top: 20,right: 16),
-         child:Column(
-           children: [
-              Text(model?.description ?? "",
-              textAlign: TextAlign.center, style: bodyTitleStyle),
-             
-             CustomButton(text: " Yarışmaya Katıl", isLoading: false, func: ()=>Navigator.pushNamed(context, "/addFoodPage")),
-           ],
-         )),
-              
+          if (pageId == 1)
+            Padding(
+                padding: const EdgeInsets.only(left: 16, top: 20, right: 16),
+                child: Column(
+                  children: [
+                    Text(model?.description ?? "",
+                        textAlign: TextAlign.center, style: bodyTitleStyle),
+                    CustomButton(
+                        text: " Yarışmaya Katıl",
+                        isLoading: false,
+                        func: () =>
+                            Navigator.pushNamed(context, "/addFoodPage")),
+                  ],
+                )),
         ],
       ),
     );
@@ -157,7 +148,7 @@ class FinishedContestPageView extends StatelessWidget {
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: 5,
               itemBuilder: (context, index) {
                 return Row(
@@ -173,7 +164,7 @@ class FinishedContestPageView extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Text("Ayşe hanım"),
+                        const Text("Ayşe hanım"),
                       ],
                     )
                   ],
@@ -200,7 +191,9 @@ class FinishedContestPageView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                pageId==1?ContestFinishedDetailPageStrings.finishTimeText:"Yarışma Bitti",
+                pageId == 1
+                    ? ContestFinishedDetailPageStrings.finishTimeText
+                    : "Yarışma Bitti",
                 style: kalanTimeTextStyle,
               ),
               Text(

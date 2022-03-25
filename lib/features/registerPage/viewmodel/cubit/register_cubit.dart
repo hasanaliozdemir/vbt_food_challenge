@@ -7,22 +7,18 @@ import 'package:vbt_food_challange/features/registerPage/service/register_servic
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-
-
-
   RegisterCubit() : super(RegisterInitial());
 
   bool isLoading = false;
-  bool isRegisterFail=false;
-   GlobalKey<FormState> formKey = GlobalKey();
+  bool isRegisterFail = false;
+  GlobalKey<FormState> formKey = GlobalKey();
   RegisterService registerService = RegisterService();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  FocusNode emailFocus=FocusNode();
-   FocusNode passwordFocus=FocusNode();
-    FocusNode nameFocus=FocusNode();
-
+  FocusNode emailFocus = FocusNode();
+  FocusNode passwordFocus = FocusNode();
+  FocusNode nameFocus = FocusNode();
 
   void register(BuildContext context) {
     if (formKey.currentState!.validate()) {
@@ -32,9 +28,9 @@ class RegisterCubit extends Cubit<RegisterState> {
           passwordController.text.isNotEmpty) {
         registerService
             .signUp(
-          name:nameController.text,
-          email:emailController.text,
-          password : passwordController.text,
+          name: nameController.text,
+          email: emailController.text,
+          password: passwordController.text,
         )
             .catchError((e) {
           emit(RegisterFailure(error: e.toString()));
@@ -59,8 +55,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void registerSuccess(BuildContext context) {
-    print('Yönlendiriliyor');
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>HomePageView()), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePageView()),
+        (route) => false);
   }
 }
 

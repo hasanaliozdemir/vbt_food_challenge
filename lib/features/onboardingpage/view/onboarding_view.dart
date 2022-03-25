@@ -19,21 +19,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-  
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              flex: 7,
-              child: _builderPageView()),
+            Expanded(flex: 7, child: _builderPageView()),
             Container(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal:context.height/20,vertical: context.width/20),
-                child: _buildCustomButton(),
-              ))
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.height / 20,
+                      vertical: context.width / 20),
+                  child: _buildCustomButton(),
+                ))
           ],
         ),
       ),
@@ -54,17 +52,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       },
     );
   }
-  
 
-  Column _builderColumn(int index, BuildContext context,) {
+  Column _builderColumn(
+    int index,
+    BuildContext context,
+  ) {
     return Column(children: [
-       SizedBox(
-        height: context.height/20,
+      SizedBox(
+        height: context.height / 20,
       ),
       _builderSvgPicture(index),
-      
       _buildModelContainer(index, context),
-      
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
@@ -78,31 +76,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   SvgPicture _builderSvgPicture(int index) {
     return SvgPicture.asset(
       models[index].image,
-      height: context.height/4,
+      height: context.height / 4,
     );
   }
 
   Container _buildModelContainer(int index, BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: context.height/10,horizontal: 5),
+      padding:
+          EdgeInsets.symmetric(vertical: context.height / 10, horizontal: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          
           Padding(
-            padding: const EdgeInsets.only(left:8.0),
+            padding: const EdgeInsets.only(left: 8.0),
             child: Text(
-              
               models[index].title,
               style: Theme.of(context).textTheme.headline5?.copyWith(
-                
-                  color: isDark ? AppColors().white : AppColors().black,
-                  fontWeight: FontWeight.bold,),
+                    color: isDark ? AppColors().white : AppColors().black,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: context.height/40),
+            padding: EdgeInsets.symmetric(horizontal: context.height / 40),
             child: Text(
               models[index].description,
               textAlign: TextAlign.center,
@@ -136,7 +133,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       margin: const EdgeInsets.only(right: 5),
-      height:context.height * 0.01,
+      height: context.height * 0.01,
       width: context.height * 0.01,
       decoration: BoxDecoration(
           color: selectedSlider == index

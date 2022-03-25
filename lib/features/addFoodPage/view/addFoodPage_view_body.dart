@@ -154,7 +154,7 @@ class _AddFoodPageViewBodyState extends State<AddFoodPageViewBody> {
                           alignment: Alignment.centerLeft,
                           child: Text(AddFoodStrings.recipeContentTitle),
                         ),
-                        Container(
+                        SizedBox(
                           height: context.height / 5,
                           child: TextFormField(
                             // key: ValueKey(valKey),

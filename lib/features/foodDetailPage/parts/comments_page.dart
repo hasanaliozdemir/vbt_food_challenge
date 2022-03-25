@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
 
 import '../../../product/widgets/comment_container.dart';
 
 class CommentsPage extends StatelessWidget {
 // final List<CommentModel>? commentList;
-   CommentsPage({Key? key,
-  // required this.commentList
-   }) : super(key: key);
+  CommentsPage({
+    Key? key,
+    // required this.commentList
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
