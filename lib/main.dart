@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
 
             case "finishContestDetail":
               return PageTransition(
-                child: FinishedContestPageView(
+                child: FinishedContestPageView(pageId: int.parse(filtered[3]),
                   model: ContestModel(),
                 ),
                 type: PageTransitionType.fade,

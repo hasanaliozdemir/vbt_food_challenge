@@ -104,7 +104,7 @@ class ContestPageView extends StatelessWidget {
                         //foodName: list?[index].name,
                         
                         isAdded: true,
-                        onpressed: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],))),
+                        onpressed: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],pageId: 1,))),
 
                       ),
                     ),
@@ -156,7 +156,7 @@ class ContestPageView extends StatelessWidget {
 
                     //yarışma ayrıntısına gidilecek
                     onpressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],)));
+                      Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],pageId: 1,)));
                     },
                   ),
                 );
