@@ -6,10 +6,24 @@ import 'package:vbt_food_challange/core/constant/strings/addFood_strings.dart';
 import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/core/widgets/custom_button.dart';
 import 'package:vbt_food_challange/features/addFoodPage/viewmodel/cubit/foodadd_cubit.dart';
+import 'package:vbt_food_challange/features/searchPage/model/cateory_card_model.dart';
 
-class AddFoodPageViewBody extends StatelessWidget {
+class AddFoodPageViewBody extends StatefulWidget {
   const AddFoodPageViewBody({Key? key}) : super(key: key);
 
+  @override
+  State<AddFoodPageViewBody> createState() => _AddFoodPageViewBodyState();
+}
+
+class _AddFoodPageViewBodyState extends State<AddFoodPageViewBody> {
+  List<CategoryCardModel> categories = [
+    CategoryCardModel("Çorba", false),
+    CategoryCardModel("Ana Yemek", false),
+    CategoryCardModel("Ara Sıcak", false),
+    CategoryCardModel("Tatlı", false),
+    CategoryCardModel("İçecek", false),
+    CategoryCardModel("Salata", false),
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FoodAddCubit>(
@@ -39,8 +53,9 @@ class AddFoodPageViewBody extends StatelessWidget {
                                   ),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppColors().white),
+                                      shape: BoxShape.circle,
+                                      color: AppColors().white,
+                                    ),
                                     child: Icon(
                                       Icons.add,
                                       color: AppColors().red,
@@ -55,7 +70,8 @@ class AddFoodPageViewBody extends StatelessWidget {
                                     borderRadius: context.highBorderRadius,
                                   ),
                                   child: Image.file(
-                                      context.read<FoodAddCubit>().image!)),
+                                      context.read<FoodAddCubit>().image!),
+                                ),
                           //select Menu
                           Container(
                             padding: context.paddingLow,
@@ -110,6 +126,26 @@ class AddFoodPageViewBody extends StatelessWidget {
                           ),
                         ),
                       ),
+                    ),
+                    DropdownButton(
+                      value: context.read<FoodAddCubit>().selectedCategory,
+                      items: categories
+                          .map((e) => DropdownMenuItem(
+                                child: Text(e.category),
+                                value: e.category,
+                              ))
+                          .toList(),
+                      onChanged: (String? value) => context
+                          .read<FoodAddCubit>()
+                          .changeSelectedCategory(value),
+                      isExpanded: true,
+                      hint: Text(
+                        AddFoodStrings.categoryLabelText,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                    ),
+                    SizedBox(
+                      height: context.height * 0.02,
                     ),
                     Column(
                       children: [
