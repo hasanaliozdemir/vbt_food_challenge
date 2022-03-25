@@ -145,7 +145,7 @@ class HomePageView extends StatelessWidget {
                     participants: 25,
                     onpressed: (){
                       //tamamlanan yarışmalara gidecek
-                      Navigator.push(context,MaterialPageRoute(builder: ((context) => FinishedContestPageView(model: list?[index],))));
+                      Navigator.push(context,MaterialPageRoute(builder: ((context) => FinishedContestPageView(model: list?[index],pageId: 0,))));
                       }
                   ),
                 );

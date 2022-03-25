@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestDetail_strings.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestFinishDetail_strings.dart';
+import 'package:vbt_food_challange/core/widgets/custom_button.dart';
 import 'package:vbt_food_challange/features/contestPage/views/ContestPage/viewmodel/cubit/contesthomepage_cubit.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
@@ -16,7 +17,12 @@ import '../../model/contest_model.dart';
 //kazanan kişi eklenecek
 class FinishedContestPageView extends StatelessWidget {
   final ContestModel? model;
-  const FinishedContestPageView({Key? key, required this.model})
+  final int? pageId;
+  const FinishedContestPageView({Key? key,
+  
+   required this.model,
+   required this.pageId
+   })
       : super(key: key);
 
   @override
@@ -61,8 +67,8 @@ class FinishedContestPageView extends StatelessWidget {
                         _buildImageOfContest(
                             kalanTimeTextStyle, context, model),
 
-                        _buildMiddleContent(appbarTitleStyle, bodyTitleStyle,
-                            bodyTextStyle, model),
+                        _buildMiddleContent(context,appbarTitleStyle, bodyTitleStyle,
+                            bodyTextStyle,pageId,model),
                         //Tamamlanan Yarışmalar
                         _participantRecipe(appbarTitleStyle, model),
 
@@ -79,9 +85,11 @@ class FinishedContestPageView extends StatelessWidget {
   }
 
   Padding _buildMiddleContent(
+      BuildContext context,
       TextStyle? appbarTitleStyle,
       TextStyle? bodyTitleStyle,
       TextStyle? bodyTextStyle,
+      int?  pageId,
       ContestModel? model) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -114,8 +122,18 @@ class FinishedContestPageView extends StatelessWidget {
           
           
           
-          Text(model?.description ?? "",
-              textAlign: TextAlign.center, style: bodyTitleStyle)
+         
+                if(pageId==1)Padding(
+           padding: EdgeInsets.only(left: 16,top: 20,right: 16),
+         child:Column(
+           children: [
+              Text(model?.description ?? "",
+              textAlign: TextAlign.center, style: bodyTitleStyle),
+             
+             CustomButton(text: " Yarışmaya Katıl", isLoading: false, func: ()=>Navigator.pushNamed(context, "/addFoodPage")),
+           ],
+         )),
+              
         ],
       ),
     );
@@ -182,7 +200,7 @@ class FinishedContestPageView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                ContestFinishedDetailPageStrings.finishTimeText,
+                pageId==1?ContestFinishedDetailPageStrings.finishTimeText:"Yarışma Bitti",
                 style: kalanTimeTextStyle,
               ),
               Text(

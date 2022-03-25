@@ -62,35 +62,32 @@ class _ProfilPageViewState extends State<ProfilPageView> {
     );
   }
 
-  Padding _buildBody(BuildContext context) {
-    return Padding(
-      padding: context.paddingMedium.copyWith(bottom: 0),
-      child: Column(
-        children: [
-          const Spacer(
-            flex: 15,
-          ),
-          Expanded(flex: 150, child: _buildProfileCard()),
-          const Spacer(
-            flex: 34,
-          ),
-          Expanded(
-            flex: 220,
-            child: _buildAchivementCard(context),
-          ),
-          const Spacer(
-            flex: 21,
-          ),
-          Expanded(
-            flex: 160,
-            child: _buildSavedReceips(context),
-          ),
-          Expanded(
-            flex: 160,
-            child: _buildYourReceips(context),
-          ),
-        ],
-      ),
+  Column _buildBody(BuildContext context) {
+    return Column(
+      children: [
+        const Spacer(
+          flex: 15,
+        ),
+        Expanded(flex: 150, child: _buildProfileCard()),
+        const Spacer(
+          flex: 34,
+        ),
+        Expanded(
+          flex: 220,
+          child: _buildAchivementCard(context),
+        ),
+        const Spacer(
+          flex: 21,
+        ),
+        Expanded(
+          flex: 160,
+          child: _buildSavedReceips(context),
+        ),
+        Expanded(
+          flex: 160,
+          child: _buildYourReceips(context),
+        ),
+      ],
     );
   }
 

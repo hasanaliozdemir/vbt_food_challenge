@@ -9,6 +9,8 @@ import 'package:vbt_food_challange/features/addFoodPage/model/food_model.dart';
 import 'package:vbt_food_challange/features/addFoodPage/model/material_model.dart';
 import 'package:vbt_food_challange/features/addFoodPage/service/food_add_service.dart';
 
+import '../../../homePage/view/homePage_view.dart';
+
 part 'foodadd_state.dart';
 
 class FoodAddCubit extends Cubit<FoodAddState> {
@@ -89,7 +91,7 @@ class FoodAddCubit extends Cubit<FoodAddState> {
     emit(FoodAddComplate(image));
   }
 
-  Future<void> pushFood() async {
+  Future<void> pushFood(BuildContext context) async {
     FoodAddService service = FoodAddService();
     FoodModel foodModel = FoodModel(
       category: selectedCategory ?? 'Ana Yemek',
@@ -104,7 +106,8 @@ class FoodAddCubit extends Cubit<FoodAddState> {
       rating: "2",
     );
 
-    service.uploadFood(foodModel, image!);
+    service.uploadFood(foodModel, image!).whenComplete(()=>Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ((context) => HomePageView())), (route) => false));
+    
 
     emit(FoodAddComplate(image));
   }

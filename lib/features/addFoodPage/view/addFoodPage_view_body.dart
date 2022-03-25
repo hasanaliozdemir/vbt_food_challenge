@@ -271,7 +271,7 @@ class _AddFoodPageViewBodyState extends State<AddFoodPageViewBody> {
                       text: 'Ekle',
                       isLoading: false,
                       func: () {
-                        context.read<FoodAddCubit>().pushFood();
+                        context.read<FoodAddCubit>().pushFood(context);
                       },
                     ),
                   ],
