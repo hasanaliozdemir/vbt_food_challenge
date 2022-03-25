@@ -7,23 +7,24 @@ class FoodModel {
   String name;
   List<String> imageUrls;
   String recipe;
-  List<MaterialModel> materialList;
-  String id;
+  List<MaterialModel> materials;
+  int id;
   String userRef;
+  String rating;
   String? contestRef;
   List<String>? comments;
-  List<String>? likes;
+
   FoodModel({
     required this.category,
     required this.name,
     required this.imageUrls,
     required this.recipe,
-    required this.materialList,
-    required this.id,
+    required this.materials,
+    this.id = 0,
     required this.userRef,
     this.contestRef,
     this.comments,
-    this.likes,
+    this.rating = '2',
   });
 
   Map<String, dynamic> toMap() {
@@ -32,12 +33,12 @@ class FoodModel {
       'name': name,
       'imageUrls': imageUrls,
       'recipe': recipe,
-      'materialList': materialList.map((x) => x.toMap()).toList(),
+      'materials': materials.map((x) => x.toMap()).toList(),
       'id': id,
       'userRef': userRef,
       'contestRef': contestRef,
       'comments': comments,
-      'likes': likes,
+      'rating': rating,
     };
   }
 
@@ -47,18 +48,19 @@ class FoodModel {
       name: map['name'] ?? '',
       imageUrls: List<String>.from(map['imageUrls']),
       recipe: map['recipe'] ?? '',
-      materialList: List<MaterialModel>.from(
-          map['materialList']?.map((x) => MaterialModel.fromMap(x))),
+      materials: List<MaterialModel>.from(
+          map['materials']?.map((x) => MaterialModel.fromMap(x))),
       id: map['id'] ?? '',
       userRef: map['userRef'] ?? '',
       contestRef: map['contestRef'],
       comments: List<String>.from(map['comments']),
-      likes: List<String>.from(map['likes']),
+      rating: map['rating'] ?? '2',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory FoodModel.fromJson(String source) =>
-      FoodModel.fromMap(json.decode(source));
+  factory FoodModel.fromJson(String source) => FoodModel.fromMap(
+        json.decode(source),
+      );
 }
