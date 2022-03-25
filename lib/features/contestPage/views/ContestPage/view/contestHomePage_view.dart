@@ -89,18 +89,32 @@ class ContestPageView extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               itemCount: list?.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ImageCardWidget(
-                    height: context.height * 25 / 100,
-                    width: double.infinity,
-                    url: list?[index].imageUrl??"",
-                    foodName: list?[index].name,
-                    participants: 55,
-                    isAdded: true,
-                    onpressed: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],))),
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ImageCardWidget(
+                        height: context.height * 25 / 100,
+                        width: double.infinity,
+                        url: list?[index].imageUrl??"",
+                        //foodName: list?[index].name,
+                        
+                        isAdded: true,
+                        onpressed: ()=> Navigator.push(context,MaterialPageRoute(builder: (_)=>FinishedContestPageView(model: list?[index],))),
 
-                  ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                        Text(list?[index].name.toString()??""),
+                        Text("${list?[index].participant?.length.toString()} kişi katılıyor",style: Theme.of(context).textTheme.bodySmall,)
+
+                      ],),
+                    )
+                  ],
                 );
               }),
         ),

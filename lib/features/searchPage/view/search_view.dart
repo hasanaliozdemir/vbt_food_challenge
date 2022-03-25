@@ -361,7 +361,7 @@ class _SearchPageViewState extends State<SearchPageView> {
     return Padding(
       padding: context.paddingNormal,
       child: SizedBox(
-        height: context.dynamicHeight(0.533),
+        height: context.dynamicHeight(0.520),
         child: MediaQuery.removePadding(
           context: context,
           removeTop: true,

@@ -35,14 +35,15 @@ class FoodDetailPageView extends StatelessWidget {
               children: [
                 SizedBox(
                   height: context.height * 30 / 100,
-                  width: double.infinity,
+                 
                   child: ListView.builder(
+                     
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: foodModel?.imageUrls?.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(right:16.0),
                           child: ImageCardWidget(
                             url: foodModel?.imageUrls?[0]??"",
                             width: context.width,
@@ -67,7 +68,7 @@ class FoodDetailPageView extends StatelessWidget {
                       const SizedBox(
                         width: 90,
                       ),
-                       Text("${foodModel?.commentList?.length.toString()} yorum"??"0 yorum",style: Theme.of(context).textTheme.bodyText1,),
+                       Text("${foodModel?.commentList?.length.toString()} yorum",style: Theme.of(context).textTheme.bodyText1,),
                     ],
                   ),
                 ),

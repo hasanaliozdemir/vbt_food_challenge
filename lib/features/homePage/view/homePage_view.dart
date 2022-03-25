@@ -101,7 +101,7 @@ class HomePageView extends StatelessWidget {
                     url: list?[index].imageUrls?[0]??"",
                     textisUp: true,
                     foodName: list?[index].name,
-                    cooker:"Ayşe ",
+                    cooker:"Deniz",
                     onpressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) =>FoodDetailPageView(foodModel: list?[index],),))),
                   
                 );

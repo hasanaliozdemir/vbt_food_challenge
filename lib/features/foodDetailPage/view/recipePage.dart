@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/features/foodDetailPage/viewmodel/cubit/fooddetailpage_cubit.dart';
 import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 
@@ -40,8 +41,8 @@ class RecipePage extends StatelessWidget {
                                   child: ListTile(
                                     title: Row(
                                       children: [
-                                        Text(foodModel?.materials?[0].name??"null",style: Theme.of(context).textTheme.bodyText2),
-                                          Text(foodModel?.materials?[0].amount??"null",style: Theme.of(context).textTheme.bodyText2),
+                                        Text(foodModel?.materials?[0].name??"null",style: context.textTheme.bodyText2),
+                                          Text(foodModel?.materials?[0].amount??"null",style: context.textTheme.bodyText2),
                                       ],
                                     ),
                                   ),
