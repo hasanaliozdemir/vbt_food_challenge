@@ -5,8 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
-import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
+import 'package:vbt_food_challange/features/addFoodPage/model/food_model.dart';
+import 'package:vbt_food_challange/features/addFoodPage/model/material_model.dart';
+import 'package:vbt_food_challange/features/addFoodPage/service/food_add_service.dart';
 
 part 'foodadd_state.dart';
 
@@ -17,11 +18,11 @@ class FoodAddCubit extends Cubit<FoodAddState> {
 
   final formKey = GlobalKey<FormState>();
   TextEditingController foodNameController = TextEditingController();
-  TextEditingController categoryController = TextEditingController();
   TextEditingController recipeController = TextEditingController();
   TextEditingController materialnameController = TextEditingController();
   TextEditingController materialAmountController = TextEditingController();
   List<MaterialModel> materialList = [];
+  String? selectedCategory;
   List<DropdownMenuItem>? items;
   List icon = [Icons.camera_alt, Icons.image, Icons.remove_circle];
 
@@ -30,6 +31,11 @@ class FoodAddCubit extends Cubit<FoodAddState> {
   final ImagePicker _picker = ImagePicker();
   _init() async {
     // await getCategories();
+  }
+
+  Future<void> changeSelectedCategory(String? value) async {
+    selectedCategory = value;
+    emit(FoodDropDown(selectedCategory));
   }
 
   Future<void> getCameraImage() async {
@@ -83,5 +89,23 @@ class FoodAddCubit extends Cubit<FoodAddState> {
     emit(FoodAddComplate(image));
   }
 
-  Future<void> pushFood() async {}
+  Future<void> pushFood() async {
+    FoodAddService service = FoodAddService();
+    FoodModel foodModel = FoodModel(
+      category: selectedCategory ?? 'Ana Yemek',
+      name: foodNameController.text,
+      imageUrls: [],
+      recipe: recipeController.text,
+      materials: materialList,
+      id: 2,
+      userRef: "",
+      contestRef: "",
+      comments: [],
+      rating: "2",
+    );
+
+    service.uploadFood(foodModel, image!);
+
+    emit(FoodAddComplate(image));
+  }
 }

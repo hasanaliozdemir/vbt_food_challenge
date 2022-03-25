@@ -33,6 +33,9 @@ dependencies:
   firebase_core: ^1.13.1
   firebase_auth: ^3.3.11
   google_sign_in: ^5.2.4
+  firebase_storage: ^10.2.9
+  uuid: ^3.0.5
+
 
   #language settings
   easy_localization: ^3.0.0

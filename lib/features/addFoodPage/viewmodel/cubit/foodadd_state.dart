@@ -12,3 +12,9 @@ class FoodAddComplate extends FoodAddState {
 }
 
 class FoodAddError extends FoodAddState {}
+
+class FoodDropDown extends FoodAddState {
+  final Object? items;
+
+  FoodDropDown(this.items);
+}

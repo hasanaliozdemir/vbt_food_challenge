@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/theme/color/color_theme.dart';
 import 'package:vbt_food_challange/core/widgets/food_container.dart';
+import 'package:vbt_food_challange/features/foodDetailPage/view/detail_view.dart';
+import 'package:vbt_food_challange/features/profilPage/model/userModel.dart';
 import 'package:vbt_food_challange/features/profilPage/service/profile_service.dart';
+import 'package:vbt_food_challange/features/profilPage/view/profile_your_receips_view.dart';
+import 'package:vbt_food_challange/features/profilPage/view/saved_receips_view.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
+
+import '../../homePage/model/foodModel.dart';
 
 class ProfilPageView extends StatefulWidget {
   const ProfilPageView({Key? key}) : super(key: key);
@@ -13,45 +19,74 @@ class ProfilPageView extends StatefulWidget {
 }
 
 class _ProfilPageViewState extends State<ProfilPageView> {
+  List<FoodModel> favList = [];
+  List<FoodModel> myList = [];
 
+  late UserModel _currentUser;
+  bool _isLoading = true;
   @override
   void initState() {
+    _getUserData();
     super.initState();
+  }
+
+  _getUserData() async {
+    _currentUser = await ProfileService().getUser();
+    for (var i = 0; i < _currentUser.favoriteFoods!.length; i++) {
+      var _data = await _currentUser.favoriteFoods![i].get();
+      favList.add(FoodModel.fromJson(_data.data()));
+    }
+
+    for (var i = 0; i < _currentUser.addedFoods!.length; i++) {
+      var _data = await _currentUser.addedFoods![i].get();
+      myList.add(FoodModel.fromJson(_data.data()));
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: context.paddingMedium.copyWith(bottom: 0),
-        child: Column(
-          children: [
-            const Spacer(
-              flex: 15,
-            ),
-            Expanded(flex: 150, child: _buildProfileCard()),
-            const Spacer(
-              flex: 34,
-            ),
-            Expanded(
-              flex: 234,
-              child: _buildAchivementCard(context),
-            ),
-            const Spacer(
-              flex: 21,
-            ),
-            Expanded(
-              flex: 150,
-              child: _buildSavedReceips(context),
-            ),
-            Expanded(
-              flex: 150,
-              child: _buildYourReceips(context),
-            ),
-          ],
-        ),
+      body: (_isLoading)
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : _buildBody(context),
+      bottomNavigationBar: const BottomNavbar(pageid: 3),
+    );
+  }
+
+  Padding _buildBody(BuildContext context) {
+    return Padding(
+      padding: context.paddingMedium.copyWith(bottom: 0),
+      child: Column(
+        children: [
+          const Spacer(
+            flex: 15,
+          ),
+          Expanded(flex: 150, child: _buildProfileCard()),
+          const Spacer(
+            flex: 34,
+          ),
+          Expanded(
+            flex: 220,
+            child: _buildAchivementCard(context),
+          ),
+          const Spacer(
+            flex: 21,
+          ),
+          Expanded(
+            flex: 160,
+            child: _buildSavedReceips(context),
+          ),
+          Expanded(
+            flex: 160,
+            child: _buildYourReceips(context),
+          ),
+        ],
       ),
-      bottomNavigationBar: BottomNavbar(pageid: 3),
     );
   }
 
@@ -70,21 +105,24 @@ class _ProfilPageViewState extends State<ProfilPageView> {
             ),
             const Spacer(),
             SizedBox(
-              height: context.dynamicHeight(0.01),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.chevron_right,
-                  color: AppColors().red,
-                ),
+              height: context.dynamicHeight(0.03),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> YourReceipsView(foods: myList)));
+                },
+                child: Icon(
+                    Icons.chevron_right,
+                    color: AppColors().red,
+                  ),
               ),
+              
             ),
           ],
         ),
         SizedBox(
           height: context.paddingLow.top,
         ),
-        _buildReceipRow(context)
+        _buildReceipRow(context, myList)
       ],
     );
   }
@@ -104,10 +142,12 @@ class _ProfilPageViewState extends State<ProfilPageView> {
             ),
             const Spacer(),
             SizedBox(
-              height: context.dynamicHeight(0.01),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(
+              height: context.dynamicHeight(0.03),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SavedReceipsView(foods: favList)));
+                },
+                child: Icon(
                   Icons.chevron_right,
                   color: AppColors().red,
                 ),
@@ -118,47 +158,60 @@ class _ProfilPageViewState extends State<ProfilPageView> {
         SizedBox(
           height: context.paddingLow.top,
         ),
-        _buildReceipRow(context)
+        _buildReceipRow(context, favList)
       ],
     );
   }
 
-  SingleChildScrollView _buildReceipRow(BuildContext context) {
+  SingleChildScrollView _buildReceipRow(
+      BuildContext context, List<FoodModel> foodsList) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: List.generate(8, (index) {
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(foodsList.length, (index) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: context.paddingLow.right),
-            child: SizedBox(
-              width: context.dynamicWidth(0.3),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "data",
-                      style: TextStyle(fontSize: context.dynamicWidth(0.03)),
-                      textAlign: TextAlign.left,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            FoodDetailPageView(foodModel: foodsList[index])));
+              },
+              child: SizedBox(
+                width: context.dynamicWidth(0.3),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        foodsList[index].name ?? "",
+                        maxLines: 1,
+                        style: TextStyle(fontSize: context.dynamicWidth(0.03)),
+                        textAlign: TextAlign.left,
+                      ),
                     ),
-                  ),
-                  Row(
-                    children: List.generate(5, (index) {
-                      return Icon(
-                        Icons.star,
-                        color: AppColors().demonicyellow,
-                        size: context.dynamicWidth(0.03),
-                      );
-                    }),
-                  ),
-                  ImageCardWidget(
-                    height: context.dynamicHeight(0.08),
-                    width: context.dynamicWidth(0.3),
-                    url:
-                        "https://cdn.ye-mek.net/App_UI/Img/out/420/2016/06/karniyarik-resimli-yemek-tarifi(20).jpg",
-                  ),
-                ],
+                    Row(
+                      children: List.generate(5, (index) {
+                        return Icon(
+                          Icons.star,
+                          color: AppColors().demonicyellow,
+                          size: context.dynamicWidth(0.03),
+                        );
+                      }),
+                    ),
+                    ImageCardWidget(
+                      height: context.dynamicHeight(0.08),
+                      width: context.dynamicWidth(0.3),
+                      url: foodsList[index].imageUrls!.first,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -200,7 +253,7 @@ class _ProfilPageViewState extends State<ProfilPageView> {
             const FittedBox(
               child: CircleAvatar(
                 backgroundImage: NetworkImage(
-                    "https://www.aydemirlergergitavan.com/wp-content/uploads/2019/05/yuvarlak-8.jpg"),
+                    "https://www.awardsaplus.com/wp-content/uploads/2016/08/ICON_achievement-icon.png"),
               ),
             ),
             SizedBox(
@@ -223,13 +276,13 @@ class _ProfilPageViewState extends State<ProfilPageView> {
             child: FittedBox(
           child: CircleAvatar(
             backgroundImage: NetworkImage(
-                "https://www.aydemirlergergitavan.com/wp-content/uploads/2019/05/yuvarlak-8.jpg"),
+                "https://avatars.githubusercontent.com/u/68190862?v=4"),
           ),
         )),
         Expanded(
             child: Column(
           children: [
-            Expanded(child: FittedBox(child: Text("Hasan"))),
+            Expanded(child: FittedBox(child: Text(_currentUser.name ?? ""))),
             Spacer(),
             Expanded(child: FittedBox(child: Text("Level 2"))),
             Expanded(child: FittedBox(child: Text("Patlıcan Adam"))),
