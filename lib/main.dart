@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
 
-          "/": (context) => LoginView(),
+          "/": (context) => ContestPageView(),
         
 
         },

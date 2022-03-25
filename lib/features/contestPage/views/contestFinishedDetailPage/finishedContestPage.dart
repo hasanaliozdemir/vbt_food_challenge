@@ -1,14 +1,13 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestDetail_strings.dart';
 import 'package:vbt_food_challange/core/constant/strings/contestFinishDetail_strings.dart';
-import 'package:vbt_food_challange/core/constant/strings/contestpage_strings.dart';
-import 'package:vbt_food_challange/features/contestPage/viewmodel/cubit/finishedcontestpage_cubit.dart';
-import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
+import 'package:vbt_food_challange/features/contestPage/views/ContestPage/viewmodel/cubit/contesthomepage_cubit.dart';
 import 'package:vbt_food_challange/product/widgets/bottom_navbar.dart';
 
-import '../../../../../core/widgets/category_container.dart';
 import '../../../../../core/widgets/food_container.dart';
 import '../../../../../product/widgets/appbar.dart';
 import '../../../../core/theme/color/color_theme.dart';
@@ -32,7 +31,7 @@ class FinishedContestPageView extends StatelessWidget {
 
     TextStyle? bodyTitleStyle = Theme.of(context).textTheme.headline5?.copyWith(
           color: isDark ? AppColors().white : AppColors().black,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.normal,
         );
 
     TextStyle kalanTimeTextStyle = const TextStyle(
@@ -42,34 +41,41 @@ class FinishedContestPageView extends StatelessWidget {
           color: isDark ? AppColors().white : AppColors().black,
         );
 
-
-            
-            return Scaffold(
-              appBar: header(
-                  context: context, name: model?.name ?? "", isback: true),
-              body: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: model != null
-                    ? Column(
-                        children: [
-                          _buildImageOfContest(
-                              kalanTimeTextStyle, context, model),
-
-                          _buildMiddleContent(appbarTitleStyle, bodyTitleStyle,
-                              bodyTextStyle, model),
-                          //Tamamlanan Yarışmalar
-                          _participantRecipe(bodyTitleStyle, model),
-
-                          //Son Eklenen Tarifler
-                        ],
-                      )
-                    : Center(child: Text("Not Found")),
-              ),
-              bottomNavigationBar: BottomNavbar(pageid: 2),
-            );
-          
+    return BlocProvider(
+      create: (context) => ContesthomepageCubit(),
+      child: BlocConsumer<ContesthomepageCubit, ContesthomepageState>(
+        listener: (context, state) {
+         
+        },
+        builder: (context, state) {
+          context.read<ContesthomepageCubit>().otherFoodList = model?.contestFoods;
         
-      
+          return Scaffold(
+            appBar:
+                header(context: context, name: model?.name ?? "", isback: true),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: model != null
+                  ? Column(
+                      children: [
+                        _buildImageOfContest(
+                            kalanTimeTextStyle, context, model),
+
+                        _buildMiddleContent(appbarTitleStyle, bodyTitleStyle,
+                            bodyTextStyle, model),
+                        //Tamamlanan Yarışmalar
+                        _participantRecipe(appbarTitleStyle, model),
+
+                        //Son Eklenen Tarifler
+                      ],
+                    )
+                  : Center(child: Text("Not Found")),
+            ),
+            bottomNavigationBar: BottomNavbar(pageid: 2),
+          );
+        },
+      ),
+    );
   }
 
   Padding _buildMiddleContent(
@@ -81,26 +87,35 @@ class FinishedContestPageView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Text(
-            ContestFinishedDetailPageStrings.kazanilacakRozet,
-            style: appbarTitleStyle,
-          ),
-          if (model?.badgeUrl != null)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: SizedBox(
-                  height: 70,
-                  width: 70,
-                  child: Image.network(model?.badgeUrl.toString() ?? "")),
-            ),
           Container(
-              alignment: Alignment.center,
-              child: Text(
-                ContestFinishedDetailPageStrings.descriptionTitle,
-                style: bodyTitleStyle,
-              )),
+            
+            decoration: BoxDecoration(
+              color: AppColors().green.withOpacity(1),
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  ContestFinishedDetailPageStrings.kazanilacakRozet,
+                  style: appbarTitleStyle,
+                ),
+                Padding(
+                padding: const EdgeInsets.only(top:16,bottom: 16),
+                child: SizedBox(
+                    height: 70,
+                    width: 70,
+                    child: Image.network(model?.badgeUrl.toString() ?? "")),
+              ),
+              ],
+            ),
+          ),
+          
+          
+          
           Text(model?.description ?? "",
-              textAlign: TextAlign.center, style: bodyTextStyle)
+              textAlign: TextAlign.center, style: bodyTitleStyle)
         ],
       ),
     );
@@ -134,7 +149,8 @@ class FinishedContestPageView extends StatelessWidget {
                       child: ImageCardWidget(
                         height: context.height * 15 / 100,
                         width: context.width * 1.2 / 3,
-                        url: "https://www.gunceltarif.com/wp-content/uploads/KEBAB.jpg",
+                        url:
+                            "https://www.gunceltarif.com/wp-content/uploads/KEBAB.jpg",
                       ),
                     ),
                     Column(

@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:vbt_food_challange/features/contestPage/model/contest_model.dart';
+import 'package:vbt_food_challange/features/profilPage/model/userModel.dart';
 
+import '../../../../../homePage/model/foodModel.dart';
 import '../../service/contestHomeService.dart';
 
 part 'contesthomepage_state.dart';
@@ -14,11 +16,13 @@ class ContesthomepageCubit extends Cubit<ContesthomepageState> {
     List<ContestModel>? awardContentList;
     List<ContestModel>? mostPopularContent;
     bool isLoading = true;
+    List<FoodModel>? otherFoodList;
 
     Future<void> _init() async {
     changeLoading();
     awardContentList = await ContestHomeService().isAwardContestService();
     mostPopularContent = await ContestHomeService().mostPopularService();
+    
    
 
     emit(ContesthomepageComplate(

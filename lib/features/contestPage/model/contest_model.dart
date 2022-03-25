@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vbt_food_challange/features/homePage/model/foodModel.dart';
 
+import '../../profilPage/model/userModel.dart';
+
 
 class CommentModel{
   CommentModel({this.addTime,this.comment,this.point,this.user_uid});
@@ -52,7 +54,7 @@ class ContestModel {
         this.category,
         this.imageUrl,
         this.description,
-       // this.participant,
+        this.participant,
         this.badgeUrl,
         this.startTime,
         this.endTime,
@@ -65,7 +67,7 @@ class ContestModel {
     String? category;
     String? imageUrl;
     String? description;
-    //List<UserModel?>? participant;
+    List<dynamic>? participant;
     String? badgeUrl;
     Timestamp? startTime;
     Timestamp? endTime;
@@ -85,13 +87,14 @@ class ContestModel {
         name= json["name"];
         category= json["category"];
         imageUrl= json["imageUrl"];
-      //  participant: json["participant"],
+        participant=json['participant'];
         badgeUrl= json["badgeUrl"];
+        description=json['description'];
         startTime= json["startTime"];
         endTime= json["endTime"];
         addTime= json["addTime"];
         winner=json['winner'];
-        //contestFoods: FoodModel.fromFirestore(json),
+        contestFoods= List.generate(json['contestFoods']?.length ?? 0, (index) => FoodModel.fromJson(json['contestFoods'][index]));;
       
     
 

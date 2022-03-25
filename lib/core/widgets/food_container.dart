@@ -66,7 +66,7 @@ class ImageCardWidget extends StatelessWidget {
               ),
             if (cooker != null)
               Text(
-                "$foodName'in şefi $cooker hanımdan",
+                "$foodName'in şefi $cooker'den",
                 style: cookerTextStyle,
                 textAlign: TextAlign.start,
               ),

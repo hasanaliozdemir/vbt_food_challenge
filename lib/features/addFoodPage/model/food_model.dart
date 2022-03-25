@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:vbt_food_challange/features/addFoodPage/model/material_model.dart';
 
+
 class FoodModel {
   String category;
   String name;
